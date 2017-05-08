@@ -13,7 +13,7 @@ const HomePage = ({ ...rest }) => (
 )
 
 const StyledHomepage = styled(HomePage)`
-  background-color: ${({ theme }) => theme.colors.light}
+  background-color: ${({ theme }) => theme.colors.white}
 `
 
 export default StyledHomepage

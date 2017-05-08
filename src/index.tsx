@@ -5,6 +5,7 @@ import HomePage from './components/HomePage'
 import theme from './constants/theme'
 
 import 'normalize.css'
+import './style.css'
 
 const Application = () => (
   <ThemeProvider theme={theme}>
