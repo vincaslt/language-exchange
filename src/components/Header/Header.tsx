@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from '../../constants/themed-components'
 import Brand from './Brand'
 import Navigation from './Navigation'
-import NavigationButton from './NavigationButton'
+import Link from '../../ui/Link'
 import HeaderContent from './HeaderContent'
 
 const Header = ({ ...rest }) => (
@@ -10,9 +10,9 @@ const Header = ({ ...rest }) => (
     <HeaderContent>
       <Brand />
       <Navigation>
-        <NavigationButton href="#">link1</NavigationButton>
-        <NavigationButton href="#">link2</NavigationButton>
-        <NavigationButton href="#">link3</NavigationButton>
+        <Link href="#">link1</Link>
+        <Link href="#">link2</Link>
+        <Link to={`/chat`}>Chat</Link>
       </Navigation>
     </HeaderContent>
   </div>

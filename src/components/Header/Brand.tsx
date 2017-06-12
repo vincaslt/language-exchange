@@ -1,10 +1,9 @@
 import * as React from 'react'
 import styled from '../../constants/themed-components'
+import Link from '../../ui/Link'
 
 const Brand = ({ ...rest }) => (
-  <div {...rest}>
-    BrandName
-  </div>
+  <Link to="/" {...rest}>BrandName</Link>
 )
 
 const StyledBrand = styled(Brand)`

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from '../../constants/themed-components'
-import InputField from '../InputField'
-import Button from '../Button'
+import InputField from '../../ui/InputField'
+import Button from '../../ui/Button'
 
 const ChatInput = ({ ...rest }) => (
   <div {...rest}>
