@@ -7,7 +7,7 @@ interface Props {
   to?: H.LocationDescriptor
 }
 
-const Link = ({ to, ...rest }: Props & React.HTMLAttributes<HTMLAnchorElement>) => (
+const Link = ({ to, ...rest }: Props & React.HTMLAttributes<{}>) => (
   to
     ? <RouterLink to={to as H.LocationDescriptor} {...rest} />
     : <a {...rest} />

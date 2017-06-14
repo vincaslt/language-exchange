@@ -10,7 +10,7 @@ const Header = ({ ...rest }) => (
     <HeaderContent>
       <Brand />
       <Navigation>
-        <Link href="#">link1</Link>
+        <Link href="#" target="_blank">link1</Link>
         <Link href="#">link2</Link>
         <Link to={`/chat`}>Chat</Link>
       </Navigation>
