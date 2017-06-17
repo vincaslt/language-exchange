@@ -11,7 +11,7 @@ const ChatWindow = ({ children, ...rest }: Props) => (
   </div>
 )
 
-const StyledChatWindow = styled<Props>(ChatWindow)`
+const StyledChatWindow = styled(ChatWindow)`
   display: flex
   flex-direction: column
   flex-grow: 1

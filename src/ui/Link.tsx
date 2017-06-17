@@ -3,11 +3,11 @@ import styled from '../constants/themed-components'
 import * as H from 'history'
 import { Link as RouterLink } from 'react-router-dom'
 
-interface Props {
+type Props = React.HTMLAttributes<{}> & {
   to?: H.LocationDescriptor
 }
 
-const Link = ({ to, ...rest }: Props & React.HTMLAttributes<{}>) => (
+const Link = ({ to, ...rest }: Props) => (
   to
     ? <RouterLink to={to as H.LocationDescriptor} {...rest} />
     : <a {...rest} />

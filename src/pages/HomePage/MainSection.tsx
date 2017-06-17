@@ -3,9 +3,7 @@ import styled from '../../constants/themed-components'
 const backgroundImage = require('./assets/background.jpg')
 
 const MainSection = ({ ...rest }) => (
-  <div {...rest}>
-    To get started, edit <code>src/MainSection.tsx</code> and save to reload.
-  </div>
+  <div {...rest} />
 )
 
 const StyledMainSection = styled(MainSection)`

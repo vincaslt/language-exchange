@@ -5,7 +5,8 @@ const colors = {
   text: '#10212A',
   dark: '#55293B',
   light: '#EFDFCF',
-  white: '#FFFBFF'
+  white: '#FFFBFF',
+  black: '#000000'
 }
 
 export default {

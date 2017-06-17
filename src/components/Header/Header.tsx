@@ -4,6 +4,7 @@ import Brand from './Brand'
 import Navigation from './Navigation'
 import Link from '../../ui/Link'
 import HeaderContent from './HeaderContent'
+import constants from './constants'
 
 const Header = ({ ...rest }) => (
   <div {...rest}>
@@ -22,7 +23,7 @@ const StyledHeader = styled(Header)`
   position: fixed
   width: 100%
   background-color: ${({ theme }) => theme.colors.secondary}
-  height: 50px
+  height: ${constants.height}
   display: flex
   flex-direction: row
   justify-content: center

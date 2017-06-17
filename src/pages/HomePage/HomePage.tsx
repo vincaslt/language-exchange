@@ -3,14 +3,13 @@ import * as Router from 'react-router'
 import styled from '../../constants/themed-components'
 import MainSection from './MainSection'
 import InfoSection from './InfoSection'
-import Header from '../../components/Header'
+import HeaderWithContent from '../../components/HeaderWithContent'
 
 const HomePage = ({ ...rest }: Router.RouteComponentProps<{}>) => (
-  <div>
-    <Header />
+  <HeaderWithContent nopadding {...rest}>
     <MainSection />
     <InfoSection />
-  </div>
+  </HeaderWithContent>
 )
 
 const StyledHomepage = styled(HomePage)`

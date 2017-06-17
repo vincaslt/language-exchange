@@ -1,3 +1,7 @@
 import Header from './Header'
+import constants from './constants'
 
-export default Header
+export {
+  Header as default,
+  constants
+}

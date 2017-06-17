@@ -19,7 +19,7 @@ const ChatMessage = ({ secondary, children, ...rest }: Props) => (
   </Container>
 )
 
-const StyledChatMessage = styled<Props>(ChatMessage)`
+const StyledChatMessage = styled(ChatMessage)`
   padding: 10px
   margin: 5px
   border: 0
