@@ -10,6 +10,7 @@ const ContentContainer = styled.div`
   display: flex
   flex-direction: row
   justify-content: flex-between
+  background-color: ${({ theme }) => theme.colors.black}
   height: 100%
   width: 100%
 `
@@ -17,11 +18,13 @@ const ContentContainer = styled.div`
 type Props = Router.RouteComponentProps<{}>
 type State = {
   localStream?: MediaStream
+  remoteStream?: MediaStream
 }
 
 class VideoCallPage extends React.Component<Props, State> {
   state: State = {
-    localStream: undefined
+    localStream: undefined,
+    remoteStream: undefined
   }
 
   componentDidMount() {
@@ -30,13 +33,16 @@ class VideoCallPage extends React.Component<Props, State> {
   }
 
   render() {
+    const minimizedLocalVideo = this.state.remoteStream
+      ? <PopupVideo source={this.state.localStream} muted />
+      : null
     return (
       <HeaderWithContent fullscreen>
         <ContentContainer>
-          <FullscreenVideo muted source="https://clips-media-assets.twitch.tv/25524229792-offset-14474.mp4#t=0"/>
+          <FullscreenVideo source={this.state.remoteStream || this.state.localStream}/>
           <Sidebar />
         </ContentContainer>
-        <PopupVideo source={this.state.localStream} muted />
+        {minimizedLocalVideo}
       </HeaderWithContent>
     )
   }

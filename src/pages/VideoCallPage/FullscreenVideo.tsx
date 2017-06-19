@@ -1,28 +1,20 @@
-import * as React from 'react'
 import styled from '../../constants/themed-components'
-import VideoPlayer, { Props as VideoPlayerProps} from '../../components/VideoPlayer'
+import VideoPlayer from '../../components/VideoPlayer'
+import preloadableVideo from './PreloadableVideo'
 
-const StyledVideoPlayer = styled(VideoPlayer)`
-  height: 100%
-  max-width: 100%
-`
+const StyledVideoPlayer = preloadableVideo(styled(VideoPlayer)`
+  height: 95%
+  max-width: 95%
+  border: 1px solid ${({ theme }) => theme.colors.dark}
+`)
 
-type Props = {
-  className?: string
-} & VideoPlayerProps
-
-const Container = ({ className, ...rest }: Props) => (
-  <div className={className}>
-    <StyledVideoPlayer {...rest} />
-  </div>
-)
-
-const FullscreenVideoContainer = styled(Container)`
+const FullscreenVideo = styled(StyledVideoPlayer)`
   width: 100%
   height: 100%
   display: flex
-  justify-content: flex-end
+  justify-content: center
+  align-items: center
   background-color: ${({ theme }) => theme.colors.black}
 `
 
-export default FullscreenVideoContainer
+export default FullscreenVideo
