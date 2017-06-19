@@ -16,7 +16,6 @@ const Container = styled.div`
 const Content = styled.div`
   height: ${({ fullscreen }: Props) => fullscreen ? '100%' : 'auto'}
   width: ${({ fullscreen }: Props) => fullscreen ? '100%' : 'auto'}
-  position: relative
 `
 
 const HeaderWithContent = ({ children, fullscreen, ...rest }: Props) => (

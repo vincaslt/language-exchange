@@ -6,17 +6,18 @@ const StyledVideoPlayer = styled(VideoPlayer)`
   height: 100%
 `
 
-type Props = {
+type ContainerProps = VideoPlayerProps & {
   className?: string
-} & VideoPlayerProps
+  visible: boolean
+}
 
-const Container = ({ className, ...rest }: Props) => (
+const PopupVideoContainer = ({ className, visible, ...rest }: ContainerProps) => (
   <div className={className}>
     <StyledVideoPlayer {...rest} />
   </div>
 )
 
-const PopupVideo = styled(Container)`
+const StyledPopupVideoContainer = styled(PopupVideoContainer)`
   position: absolute
   height: 25%
   width: auto
@@ -24,8 +25,34 @@ const PopupVideo = styled(Container)`
   overflow: hidden
   background-color: ${({ theme }) => theme.colors.black}
   border: 1px solid ${({ theme }) => theme.colors.dark}
-  bottom: 1%
-  left: 1%
+  visibility: ${(props) => props.visible ? 'visible' : 'hidden'}
+  bottom: 2%
+  left: 2%
+  color: white
 `
+
+type State = {
+  playing: boolean
+}
+
+class PopupVideo extends React.Component<VideoPlayerProps, State>  {
+  state: State = {
+    playing: false
+  }
+
+  onStartPlaying = () => {
+    this.setState({ ...this.state, playing: true })
+  }
+  
+  render() {
+    return (
+      <StyledPopupVideoContainer
+        visible={this.state.playing}
+        onStartPlaying={this.onStartPlaying}
+        {...this.props}
+      />
+    )
+  }
+}
 
 export default PopupVideo
