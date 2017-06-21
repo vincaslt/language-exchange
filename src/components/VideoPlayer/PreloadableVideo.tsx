@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { Props as VideoPlayerProps} from '../../components/VideoPlayer'
+import { Props as VideoPlayerProps} from './VideoPlayer'
 
 type State = {
   playing: boolean

@@ -1,8 +1,8 @@
 import styled from '../../constants/themed-components'
 import VideoPlayer from '../../components/VideoPlayer'
-import preloadableVideo from './PreloadableVideo'
+import { PreloadableVideo } from '../../components/VideoPlayer'
 
-const StyledVideoPlayer = preloadableVideo(styled(VideoPlayer)`
+const StyledVideoPlayer = PreloadableVideo(styled(VideoPlayer)`
   height: 100%
 `)
 

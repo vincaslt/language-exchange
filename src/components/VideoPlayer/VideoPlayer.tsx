@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { isString } from '../utils/stringUtils'
+import { isString } from '../../utils/stringUtils'
 
 type SourceType = MediaStream | string | undefined
 
