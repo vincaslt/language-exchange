@@ -5,8 +5,10 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom'
+import { Provider } from 'react-redux'
 import HomePage from './pages/HomePage'
 import VideoCallPage from './pages/VideoCallPage'
+import { store } from './store'
 import theme from './constants/theme'
 
 import 'normalize.css'
@@ -24,6 +26,8 @@ const Application = () => (
 )
 
 ReactDOM.render(
-  <Application />,
+  <Provider store={store} >
+    <Application />
+  </Provider>,
   document.getElementById('root') as HTMLElement
 )
