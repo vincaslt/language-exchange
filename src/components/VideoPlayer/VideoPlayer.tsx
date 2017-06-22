@@ -10,23 +10,30 @@ export type Props = React.HTMLAttributes<HTMLVideoElement> & {
 
 export default class VideoPlayer extends React.Component<Props, {}> {
   videoPlayer: HTMLVideoElement
+  eventListener: EventListener
 
   componentDidMount() {
     this.applyMediaSource(this.props.source)
-    this.videoPlayer.addEventListener('playing', (e) => {
-      if (this.props.onStartPlaying) {
-        this.props.onStartPlaying()
-      }
-    })
+    this.videoPlayer.addEventListener('playing', this.handlePlayingEvent)
   }
 
   componentWillUnmount() {
-    this.videoPlayer.removeEventListener('playing')
+    this.videoPlayer.removeEventListener('playing', this.handlePlayingEvent)
+    const stream = this.props.source
+    if (stream instanceof MediaStream) {
+      stream.getTracks().forEach(track => track.stop())
+    }
   }
 
   componentWillReceiveProps(nextProps: Props) {
     if (this.props.source !== nextProps.source) {
       this.applyMediaSource(nextProps.source)
+    }
+  }
+
+  handlePlayingEvent = (e: Event) => {
+    if (this.props.onStartPlaying) {
+      this.props.onStartPlaying()
     }
   }
 
@@ -37,7 +44,7 @@ export default class VideoPlayer extends React.Component<Props, {}> {
   }
 
   render() {
-    const { source, ...rest } = this.props
+    const { source, onStartPlaying, ...rest } = this.props
     const renderVideo = ({ ...props }) => (
       <video ref={(player) => this.videoPlayer = player} autoPlay {...props} />
     )
