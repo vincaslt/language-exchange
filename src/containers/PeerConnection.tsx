@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { State as ReduxState } from '../modules'
 import { actions } from '../modules/peerjs'
-const Peer = require('peerjs') // TODO: f**k peerJs declaring a namespace...
+const PeerJS: typeof Peer = require('peerjs') // TODO: f**k peerJs declaring a namespace...
 
 /**
  * Starts a real time connection between two clients using PeerJS
@@ -32,7 +32,7 @@ class PeerConnection extends React.Component<Props, {}> {
 
   componentDidMount() {
     if (!this.props.peerId) {
-      this.peer = new Peer({ key: 'h6cv4dod6i774x6r' })
+      this.peer = new PeerJS({ key: 'h6cv4dod6i774x6r' })
       this.peer.on('open', this.props.initializePeerJs)
       this.peer.on('call', (call) => this.handleCall(call))
     }
