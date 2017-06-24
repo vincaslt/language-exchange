@@ -5,11 +5,14 @@
   "dependencies": {
     "@types/jest": "^19.2.2",
     "@types/node": "^7.0.14",
+    "@types/peerjs": "0.0.28",
     "@types/react": "^15.0.23",
     "@types/react-dom": "^15.5.0",
     "@types/react-redux": "^4.4.44",
     "@types/react-router-dom": "^4.0.4",
+    "@types/redux-actions": "1.2.4",
     "normalize.css": "5.0.0",
+    "peerjs": "^0.3.14",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -17,8 +20,10 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "redux": "^3.7.0",
+    "redux-actions": "2.0.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-saga": "^0.15.3",
+    "reselect": "^3.0.1",
     "styled-components": "^1.4.5"
   },
   "devDependencies": {

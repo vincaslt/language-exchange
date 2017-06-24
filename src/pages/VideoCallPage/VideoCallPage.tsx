@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as Router from 'react-router'
 import styled from '../../constants/themed-components'
 import HeaderWithContent from '../../components/HeaderWithContent'
+import PeerConnection from '../../containers/PeerConnection'
 import FullscreenVideo from './FullscreenVideo'
 import PopupVideo from './PopupVideo'
 import Sidebar from './Sidebar'
@@ -38,6 +39,7 @@ class VideoCallPage extends React.Component<Props, State> {
       : null
     return (
       <HeaderWithContent fullscreen>
+        <PeerConnection />
         <ContentContainer>
           <FullscreenVideo source={this.state.remoteStream || this.state.localStream}/>
           <Sidebar />
@@ -47,7 +49,6 @@ class VideoCallPage extends React.Component<Props, State> {
     )
   }
 }
-
 
 const StyledVideoCallPage = styled(VideoCallPage)`
   background-color: ${({ theme }) => theme.colors.white}

@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux'
+import peerjs, { PeerJsState } from './peerjs'
 
-export interface State {}
+export interface State {
+  peerjs: PeerJsState
+}
 
 export const reducers = combineReducers({
-  // TODO: Add any reducers here
+  peerjs
 })
