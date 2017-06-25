@@ -1,5 +1,7 @@
+import peerjs from './peerjs'
+
 export function* sagas () {
   yield [
-    //  TODO: Add any sagas here
+    ...peerjs
   ]
 }

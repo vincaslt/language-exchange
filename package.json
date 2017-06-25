@@ -11,6 +11,7 @@
     "@types/react-redux": "^4.4.44",
     "@types/react-router-dom": "^4.0.4",
     "@types/redux-actions": "1.2.4",
+    "connected-react-router": "^4.2.1",
     "normalize.css": "5.0.0",
     "peerjs": "^0.3.14",
     "prop-types": "^15.5.8",

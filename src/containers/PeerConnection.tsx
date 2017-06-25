@@ -1,7 +1,14 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { State as ReduxState } from '../modules'
-import { actions } from '../modules/peerjs'
+import {
+  actions,
+  isCallIncoming,
+  isCalling,
+  isCallAnswered,
+  recipientId,
+  isHost
+} from '../modules/peerjs'
 const PeerJS: typeof Peer = require('peerjs') // TODO: f**k peerJs declaring a namespace...
 
 /**
@@ -15,37 +22,82 @@ const PeerJS: typeof Peer = require('peerjs') // TODO: f**k peerJs declaring a n
  *    callback that returns a stream object received from accepted call
  */
 
-type PassedProps = {
-  peerId?: string,
-  onStream?: (stream: MediaStream) => void
+type OwnProps = {
+  localStream?: MediaStream,
+  onStream?: (stream: MediaStream) => void,
+  onClose?: () => void
 }
 
-type ReduxProps = {
-  initializePeerJs: typeof actions.initialize
+type StateProps = {
+  recipientId: string | null,
+  isCallIncoming: boolean,
+  isCalling: boolean,
+  isCallAnswered: boolean,
+  isHost: boolean
 }
 
-type Props = PassedProps & ReduxProps
+type DispatchProps = {
+  initializePeerJs: typeof actions.initialize,
+  receiveCall: typeof actions.receiveCall,
+  callAccepted: typeof actions.callAccepted,
+  dropCall: typeof actions.dropCall,
+  callDropped: typeof actions.callDropped
+}
+
+type Props = StateProps & DispatchProps & OwnProps
 
 class PeerConnection extends React.Component<Props, {}> {
   peer: PeerJs.Peer
+  incomingCall: PeerJs.MediaConnection
   props: Props
 
   componentDidMount() {
-    if (!this.props.peerId) {
-      this.peer = new PeerJS({ key: 'h6cv4dod6i774x6r' })
-      this.peer.on('open', this.props.initializePeerJs)
-      this.peer.on('call', (call) => this.handleCall(call))
+    this.peer = new PeerJS({ secure: true, host: 'server-atxqpdgwmp.now.sh', port: 443 })
+    this.peer.on('open', this.props.initializePeerJs)
+    this.peer.on('call', (call) => this.handleIncomingCall(call))
+  }
+
+  componentWillUnmount() {
+    delete this.incomingCall
+    this.peer.destroy()
+    this.props.dropCall()
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (!this.props.isCallAnswered && nextProps.isCallAnswered &&
+        this.props.isCallIncoming && !nextProps.isCallIncoming) {
+      this.incomingCall.answer(nextProps.localStream)
+      this.handleCall(nextProps, this.incomingCall)
+    }
+
+    if (!this.props.isCalling && nextProps.isCalling && nextProps.recipientId) {
+      const call = this.peer.call(nextProps.recipientId, nextProps.localStream)
+      this.handleCall(nextProps, call)
     }
   }
 
-  handleCall = (call: PeerJs.MediaConnection) => {
-    // call.answer(this.state.localStream)
-
-    this.handleStream(call)
+  handleIncomingCall = (call: PeerJs.MediaConnection) => {
+    this.incomingCall = call
+    this.props.receiveCall(call.peer)
   }
 
-  handleStream = (call: PeerJs.MediaConnection) => {
-    call.on('stream', this.props.onStream || (() => { return }))
+  handleCall = (props: Props, call: PeerJs.MediaConnection) => {
+    call.on('stream', (remoteStream: MediaStream) => {
+      if (props.isHost) {
+        this.props.callAccepted()
+      }
+
+      if (props.onStream) {
+        props.onStream(remoteStream)
+      }
+    })
+
+    call.on('close', () => {
+      props.callDropped()
+      if (props.onClose) {
+        props.onClose()
+      }
+    })
   }
 
   render() {
@@ -54,14 +106,22 @@ class PeerConnection extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-
+  recipientId: recipientId(state),
+  isCallIncoming: isCallIncoming(state),
+  isCalling: isCalling(state),
+  isCallAnswered: isCallAnswered(state),
+  isHost: isHost(state)
 })
 
 const mapDispatchToProps = {
-  initializePeerJs: actions.initialize
+  initializePeerJs: actions.initialize,
+  receiveCall: actions.receiveCall,
+  callAccepted: actions.callAccepted,
+  dropCall: actions.dropCall,
+  callDropped: actions.callDropped
 }
 
-export default connect(
+export default connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,
   mapDispatchToProps
 )(PeerConnection)
