@@ -28,8 +28,8 @@
     "styled-components": "^1.4.5"
   },
   "devDependencies": {
-    "react-scripts": "1.0.4",
-    "react-scripts-ts": "2.1.0"
+    "react-scripts": "^1.0.6",
+    "react-scripts-ts": "^2.3.1"
   },
   "scripts": {
     "start": "react-scripts-ts start",
