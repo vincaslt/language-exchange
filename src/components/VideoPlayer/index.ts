@@ -1,5 +1,5 @@
-import VideoPlayer from './VideoPlayer'
+import VideoPlayer, { Props } from './VideoPlayer'
 import PreloadableVideo from './PreloadableVideo'
 
 export default VideoPlayer
-export { PreloadableVideo }
+export { PreloadableVideo, Props }

@@ -26,10 +26,11 @@ type OwnProps = {
   localStream?: MediaStream,
   onStream?: (stream: MediaStream) => void,
   onClose?: () => void
+  onOpen?: (peerId: string) => void
 }
 
 type StateProps = {
-  recipientId: string | null,
+  recipientId: string|null,
   isCallIncoming: boolean,
   isCalling: boolean,
   isCallAnswered: boolean,
@@ -53,7 +54,12 @@ class PeerConnection extends React.Component<Props, {}> {
 
   componentDidMount() {
     this.peer = new PeerJS({ secure: true, host: 'server-atxqpdgwmp.now.sh', port: 443 })
-    this.peer.on('open', this.props.initializePeerJs)
+    this.peer.on('open', (peerId) => {
+      if (this.props.onOpen) {
+        this.props.onOpen(peerId)
+      }
+      this.props.initializePeerJs(peerId)
+    })
     this.peer.on('call', (call) => this.handleIncomingCall(call))
   }
 

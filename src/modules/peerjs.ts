@@ -81,3 +81,4 @@ export const isCallIncoming: Selector<ReduxState, boolean> = safePeerSelect<bool
 export const isCallAnswered: Selector<ReduxState, boolean> = safePeerSelect<boolean>('isCallAnswered')
 export const isHost: Selector<ReduxState, boolean> = safePeerSelect<boolean>('isHost')
 export const recipientId: Selector<ReduxState, string|null> = safePeerSelect<string|null>('recipientId')
+export const peerId: Selector<ReduxState, string|null> = safePeerSelect<string|null>('peerId')

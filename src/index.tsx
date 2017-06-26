@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
 import { Provider } from 'react-redux'
 import HomePage from './pages/HomePage'
+import Notifications from './containers/Notifications'
 import VideoCallPage from './pages/VideoCallPage'
 import { store, browserHistory } from './store'
 import theme from './constants/theme'
@@ -15,6 +16,7 @@ import './style.css'
 const Application = () => (
   <ThemeProvider theme={theme}>
     <div>
+      <Notifications />
       <Route exact path="/" component={HomePage} />
       <Route path="/chat/:recipientId?" component={VideoCallPage} />
     </div>

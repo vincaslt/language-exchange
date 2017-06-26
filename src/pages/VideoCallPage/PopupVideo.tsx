@@ -11,7 +11,8 @@ const PopupVideo = styled(StyledVideoPlayer)`
   position: absolute
   height: 25%
   width: auto
-  min-height: 100px
+  display: flex
+  flex: 0 0 auto
   overflow: hidden
   background-color: ${({ theme }) => theme.colors.black}
   border: 1px solid ${({ theme }) => theme.colors.dark}

@@ -6,16 +6,14 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { createBrowserHistory } from 'history'
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 
-// add the middlewares
-let middlewares = []
-
-// add the saga middleware
 const sagaMiddleware = createSagaMiddleware()
-middlewares.push(sagaMiddleware)
-
-// add the router middleware
 const history = createBrowserHistory()
-middlewares.push(routerMiddleware(history))
+const router = routerMiddleware(history)
+
+const middlewares = [
+  sagaMiddleware,
+  router
+]
 
 // apply the middlewares
 let middleware = applyMiddleware(...middlewares)
