@@ -1,6 +1,6 @@
 import styled from '../constants/themed-components'
 
-export default styled.button`
+const Button = styled.button`
   color: ${({ theme }) => theme.colors.text}
   border-radius: 5px
   padding: 0 20px
@@ -8,3 +8,5 @@ export default styled.button`
   border: 0px
   background-color: ${({ color, theme }) => color ? theme.colors[color] : theme.colors.primary}
 `
+
+export { Button }

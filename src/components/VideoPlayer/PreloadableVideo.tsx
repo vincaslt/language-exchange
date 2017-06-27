@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { Props as VideoPlayerProps} from './VideoPlayer'
+import { Props as VideoPlayerProps } from './VideoPlayer'
 
 type State = {
   playing: boolean
@@ -46,4 +46,4 @@ const preloadableVideo = (VideoPlayerComponent: React.ComponentClass<VideoPlayer
   return PreloadableVideo
 }
 
-export default preloadableVideo
+export { preloadableVideo }

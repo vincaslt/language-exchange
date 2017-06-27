@@ -1,8 +1,7 @@
 import styled from '../../constants/themed-components'
-import VideoPlayer from '../../components/VideoPlayer'
-import { PreloadableVideo } from '../../components/VideoPlayer'
+import { VideoPlayer, preloadableVideo } from '../../components/VideoPlayer'
 
-const StyledVideoPlayer = PreloadableVideo(styled(VideoPlayer)`
+const StyledVideoPlayer = preloadableVideo(styled(VideoPlayer)`
   height: 95%
   max-width: 95%
   border: 1px solid ${({ theme }) => theme.colors.dark}
@@ -17,4 +16,4 @@ const FullscreenVideo = styled(StyledVideoPlayer)`
   background-color: ${({ theme }) => theme.colors.black}
 `
 
-export default FullscreenVideo
+export { FullscreenVideo }

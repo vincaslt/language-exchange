@@ -7,4 +7,4 @@ const HeaderContent = styled.div`
   justify-content: space-between
 `
 
-export default HeaderContent
+export { HeaderContent }

@@ -1,8 +1,8 @@
 import * as React from 'react'
 import styled from '../../constants/themed-components'
-import ChatWindow from './ChatWindow'
-import ChatMessage from './ChatMessage'
-import ChatInput from './ChatInput'
+import { ChatWindow } from './ChatWindow'
+import { ChatMessage } from './ChatMessage'
+import { ChatInput } from './ChatInput'
 
 const Chat = ({ ...rest }) => (
   <div {...rest}>
@@ -27,4 +27,4 @@ const StyledChat = styled(Chat)`
   border-radius: 10px
 `
 
-export default StyledChat
+export { StyledChat as Chat }

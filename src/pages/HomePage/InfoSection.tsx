@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from '../../constants/themed-components'
-import Chat from '../../components/Chat'
+import { Chat } from '../../components/Chat'
 
 const InfoSection = ({ ...rest }) => (
   <div {...rest}>
@@ -15,4 +15,4 @@ const StyledInfoSection = styled(InfoSection)`
   justify-content: center
 `
 
-export default StyledInfoSection
+export { StyledInfoSection as InfoSection }

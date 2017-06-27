@@ -127,7 +127,9 @@ const mapDispatchToProps = {
   callDropped: actions.callDropped
 }
 
-export default connect<StateProps, DispatchProps, OwnProps>(
+const ConnectedPeerConnection = connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,
   mapDispatchToProps
 )(PeerConnection)
+
+export { ConnectedPeerConnection as PeerConnection }

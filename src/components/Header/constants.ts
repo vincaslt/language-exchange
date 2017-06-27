@@ -1,3 +1,3 @@
-export default {
+export const constants = {
   height: '50px'
 }

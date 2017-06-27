@@ -5,12 +5,12 @@ import * as Notifications from 'react-notification-system-redux'
 import { actions, peerId } from '../../modules/peerjs'
 import { State as ReduxState } from '../../modules'
 import styled from '../../constants/themed-components'
-import HeaderWithContent from '../../components/HeaderWithContent'
-import PeerConnection from '../../containers/PeerConnection'
-import FullscreenVideo from './FullscreenVideo'
-import PopupVideo from './PopupVideo'
-import Sidebar from './Sidebar'
-import Button from '../../ui/Button'
+import { HeaderWithContent } from '../../components/HeaderWithContent'
+import { PeerConnection } from '../../containers/PeerConnection'
+import { FullscreenVideo } from './FullscreenVideo'
+import { PopupVideo } from './PopupVideo'
+import { Sidebar } from './Sidebar'
+import { Button } from '../../ui/Button'
 const CopyToClipboard = require('react-copy-to-clipboard') // FIXME: when I know how
 
 const ContentContainer = styled.div`
@@ -141,7 +141,9 @@ const mapDispatchToProps = {
   showInfoNotification: Notifications.info
 }
 
-export default connect<{}, DispatchProps, OwnProps>(
+const ConnectedVideoCallPage = connect<{}, DispatchProps, OwnProps>(
   mapStateToProps,
   mapDispatchToProps
 )(StyledVideoCallPage)
+
+export { ConnectedVideoCallPage as VideoCallPage }

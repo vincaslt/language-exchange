@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import Header, { constants as headerConstants} from './Header'
+import { Header, constants as headerConstants} from './Header'
 
 interface Props {
   children?: JSX.Element,
@@ -31,4 +31,4 @@ const StyledHeaderWithContent = styled(HeaderWithContent)`
   padding-top: ${({ nopadding }: Props) => !nopadding ? headerConstants.height : 'auto'}
 `
 
-export default StyledHeaderWithContent
+export { StyledHeaderWithContent as HeaderWithContent}

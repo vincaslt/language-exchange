@@ -33,7 +33,7 @@ export const actions = {
   callDropped: createAction(types.CALL_DROPPED)
 }
 
-export default handleActions<PeerJsState, string>({
+export const reducer = handleActions<PeerJsState, string>({
   [types.INITIALIZE]: (state: PeerJsState, action: Action<string>): PeerJsState => {
     return action.payload ? {
       peerId: action.payload,

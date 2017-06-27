@@ -1,10 +1,10 @@
 import * as React from 'react'
 import styled from '../../constants/themed-components'
-import Brand from './Brand'
-import Navigation from './Navigation'
-import Link from '../../ui/Link'
-import HeaderContent from './HeaderContent'
-import constants from './constants'
+import { Brand } from './Brand'
+import { Navigation } from './Navigation'
+import { Link } from '../../ui/Link'
+import { HeaderContent } from './HeaderContent'
+import { constants } from './constants'
 
 const Header = ({ ...rest }) => (
   <div {...rest}>
@@ -30,4 +30,4 @@ const StyledHeader = styled(Header)`
   align-items: center
 `
 
-export default StyledHeader
+export { StyledHeader as Header }

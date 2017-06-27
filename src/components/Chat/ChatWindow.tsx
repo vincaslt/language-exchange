@@ -19,4 +19,4 @@ const StyledChatWindow = styled(ChatWindow)`
   padding: 10px
 `
 
-export default StyledChatWindow
+export { StyledChatWindow as ChatWindow }

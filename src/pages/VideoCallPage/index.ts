@@ -1,3 +1,1 @@
-import VideoCallPage from './VideoCallPage'
-
-export default VideoCallPage
+export { VideoCallPage } from './VideoCallPage'

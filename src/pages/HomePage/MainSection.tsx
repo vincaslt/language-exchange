@@ -15,4 +15,4 @@ const StyledMainSection = styled(MainSection)`
   min-height: 100vh
 `
 
-export default StyledMainSection
+export { StyledMainSection as MainSection }

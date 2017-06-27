@@ -18,4 +18,4 @@ const StyledSidebar = styled(Sidebar)`
   width: 150px
 `
 
-export default StyledSidebar
+export { StyledSidebar as Sidebar }

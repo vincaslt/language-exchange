@@ -1,7 +1,2 @@
-import Header from './Header'
-import constants from './constants'
-
-export {
-  Header as default,
-  constants
-}
+export { Header } from './Header'
+export { constants } from './constants'

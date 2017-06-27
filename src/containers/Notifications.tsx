@@ -6,4 +6,6 @@ const mapStateToProps = (state: ReduxState) => ({
  notifications: state.notifications
 })
 
-export default connect(mapStateToProps)(Notifications)
+const ConnectedNotifications = connect(mapStateToProps)(Notifications)
+
+export { ConnectedNotifications as Notifications }

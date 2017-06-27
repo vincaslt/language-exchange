@@ -29,4 +29,4 @@ const StyledChatMessage = styled(ChatMessage)`
   max-width: 75%
 `
 
-export default StyledChatMessage
+export { StyledChatMessage as ChatMessage }

@@ -1,15 +1,15 @@
 import * as React from 'react'
 import styled from '../constants/themed-components'
-import * as H from 'history'
+import * as History from 'history'
 import { Link as RouterLink } from 'react-router-dom'
 
 type Props = React.HTMLAttributes<{}> & {
-  to?: H.LocationDescriptor
+  to?: History.LocationDescriptor
 }
 
 const Link = ({ to, ...rest }: Props) => (
   to
-    ? <RouterLink to={to as H.LocationDescriptor} {...rest} />
+    ? <RouterLink to={to as History.LocationDescriptor} {...rest} />
     : <a {...rest} />
 )
 
@@ -18,4 +18,4 @@ const StyledLink = styled(Link)`
   color: ${({ theme }) => theme.colors.light}
 `
 
-export default StyledLink
+export { StyledLink as Link }

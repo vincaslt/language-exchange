@@ -1,11 +1,9 @@
 import styled from '../../constants/themed-components'
-import VideoPlayer from '../../components/VideoPlayer'
-import { PreloadableVideo } from '../../components/VideoPlayer'
+import { VideoPlayer, preloadableVideo } from '../../components/VideoPlayer'
 
-const StyledVideoPlayer = PreloadableVideo(styled(VideoPlayer)`
+const StyledVideoPlayer = preloadableVideo(styled(VideoPlayer)`
   height: 100%
 `)
-
 
 const PopupVideo = styled(StyledVideoPlayer)`
   position: absolute
@@ -21,5 +19,4 @@ const PopupVideo = styled(StyledVideoPlayer)`
   color: white
 `
 
-
-export default PopupVideo
+export { PopupVideo }
