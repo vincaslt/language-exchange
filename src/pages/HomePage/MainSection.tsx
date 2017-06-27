@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from '../../constants/themed-components'
-const backgroundImage = require('./assets/background.jpg')
+import * as backgroundImage from './assets/background.jpg'
 
 const MainSection = ({ ...rest }) => (
   <div {...rest} />
