@@ -5,7 +5,7 @@
   "dependencies": {
     "@types/jest": "^19.2.2",
     "@types/node": "^7.0.14",
-    "@types/react": "^15.0.23",
+    "@types/react": "^15.0.33",
     "@types/react-copy-to-clipboard": "^4.2.3",
     "@types/react-dom": "^15.5.0",
     "@types/react-notification-system": "^0.2.35",

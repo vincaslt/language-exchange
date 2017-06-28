@@ -1,11 +1,16 @@
+import * as React from 'react'
 import { connect } from 'react-redux'
+import * as Notifications from 'react-notification-system-redux'
 import { State as ReduxState } from '../modules'
-const Notifications = require('react-notification-system-redux') // FIXME: when I know how
 
 const mapStateToProps = (state: ReduxState) => ({
- notifications: state.notifications
+  notifications: state.notifications
 })
 
-const ConnectedNotifications = connect(mapStateToProps)(Notifications)
+const NotificationsContainer = ({ ...props }: Notifications.NotificationsProps) => {
+  return <Notifications {...props} />
+}
+
+const ConnectedNotifications = connect(mapStateToProps)(NotificationsContainer)
 
 export { ConnectedNotifications as Notifications }
