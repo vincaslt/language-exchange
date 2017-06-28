@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from '../../constants/themed-components'
 
 interface Props {
-  children?: JSX.Element,
+  children?: React.ReactNode,
   secondary?: boolean
 }
 

@@ -1,13 +1,10 @@
 import * as React from 'react'
 import styled from '../../constants/themed-components'
+import { CallButton } from '../../containers/CallButton'
 
-type Props = {
-  children?: JSX.Element
-}
-
-const Sidebar = ({ children, ...rest }: Props) => (
+const Sidebar = ({ ...rest }) => (
   <div {...rest}>
-    {children}
+    <CallButton />
   </div>
 )
 

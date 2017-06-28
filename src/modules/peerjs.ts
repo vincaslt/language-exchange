@@ -8,6 +8,7 @@ export type PeerJsState = {
   isCallIncoming: boolean,
   isCallAnswered: boolean,
   recipientId?: string,
+  isReady?: boolean,
   isHost?: boolean
 } | null
 
@@ -39,7 +40,8 @@ export const reducer = handleActions<PeerJsState, string>({
       peerId: action.payload,
       isCallIncoming: false,
       isCalling: false,
-      isCallAnswered: false
+      isCallAnswered: false,
+      isReady: true
     } : null
   },
   [types.RECEIVE_CALL]: (state: PeerJsState, action: Action<string>): PeerJsState => ({
@@ -67,6 +69,7 @@ export const reducer = handleActions<PeerJsState, string>({
   [types.DROP_CALL]: (state: PeerJsState): PeerJsState => null,
   [types.CALL_DROPPED]: (state: PeerJsState): PeerJsState => ({
     ...state,
+    recipientId: undefined,
     isCallAnswered: false
   })
 }, initialState)
@@ -76,6 +79,7 @@ const safePeerSelect =
     (state: ReduxState): T => 
       (state.peerjs && state.peerjs[property] || null) as T
 
+export const isReady: Selector<ReduxState, boolean> = safePeerSelect<boolean>('isReady')
 export const isCalling: Selector<ReduxState, boolean> = safePeerSelect<boolean>('isCalling')
 export const isCallIncoming: Selector<ReduxState, boolean> = safePeerSelect<boolean>('isCallIncoming')
 export const isCallAnswered: Selector<ReduxState, boolean> = safePeerSelect<boolean>('isCallAnswered')

@@ -1,9 +1,9 @@
 import * as React from 'react'
-import styled from 'styled-components'
+import styled from '../constants/themed-components'
 import { Header, constants as headerConstants} from './Header'
 
 interface Props {
-  children?: JSX.Element,
+  children?: React.ReactNode,
   fullscreen?: boolean,
   nopadding?: boolean
 }

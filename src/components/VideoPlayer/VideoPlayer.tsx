@@ -46,7 +46,15 @@ class VideoPlayer extends React.Component<Props, {}> {
   render() {
     const { source, onStartPlaying, ...rest } = this.props
     const renderVideo = ({ ...props }) => (
-      <video ref={(player) => this.videoPlayer = player} autoPlay {...props} />
+      <video
+        ref={(player) => {
+          if (player) {
+            this.videoPlayer = player
+          }
+        }}
+        autoPlay
+        {...props}
+      />
     )
 
     if (isString(this.props.source)) {

@@ -10,6 +10,7 @@ import { VideoCallPage } from './pages/VideoCallPage'
 import { store, browserHistory } from './store'
 import * as Theme from './constants/theme'
 
+import 'font-awesome/css/font-awesome.css'
 import 'normalize.css'
 import './style.css'
 

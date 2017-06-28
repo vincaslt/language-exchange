@@ -64,8 +64,7 @@ class PeerConnection extends React.Component<Props, {}> {
   }
 
   componentWillUnmount() {
-    delete this.incomingCall
-    this.peer.destroy()
+    this.cleanupConnection()
     this.props.dropCall()
   }
 
@@ -79,6 +78,17 @@ class PeerConnection extends React.Component<Props, {}> {
     if (!this.props.isCalling && nextProps.isCalling && nextProps.recipientId) {
       const call = this.peer.call(nextProps.recipientId, nextProps.localStream)
       this.handleCall(nextProps, call)
+    }
+
+    if (this.props.isCallAnswered && !nextProps.isCallAnswered) {
+      this.cleanupConnection()
+    }
+  }
+
+  cleanupConnection = () => {
+    delete this.incomingCall
+    if (this.peer && !this.peer.destroyed) {
+      this.peer.destroy()
     }
   }
 

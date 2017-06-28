@@ -7,11 +7,16 @@ type Props = React.HTMLAttributes<{}> & {
   to?: History.LocationDescriptor
 }
 
-const Link = ({ to, ...rest }: Props) => (
-  to
-    ? <RouterLink to={to as History.LocationDescriptor} {...rest} />
-    : <a {...rest} />
-)
+class Link extends React.Component<Props> {
+  render() {
+    const { to, ...rest } = this.props
+    return (
+      to
+        ? <RouterLink to={to as History.LocationDescriptor} {...rest} />
+        : <a {...rest} />
+    )
+  }
+}
 
 const StyledLink = styled(Link)`
   padding: 0 10px

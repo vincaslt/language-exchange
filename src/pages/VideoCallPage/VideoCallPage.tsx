@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as Router from 'react-router'
 import * as Notifications from 'react-notification-system-redux'
 import * as CopyToClipboard from 'react-copy-to-clipboard'
-import { actions, peerId } from '../../modules/peerjs'
+import { actions, peerId, isCallAnswered, isCalling, isReady } from '../../modules/peerjs'
 import { State as ReduxState } from '../../modules'
 import styled from '../../constants/themed-components'
 import { HeaderWithContent } from '../../components/HeaderWithContent'
@@ -34,7 +34,10 @@ type OwnProps = Router.RouteComponentProps<{
 }>
 
 type StateProps = {
-  peerId: string|null
+  peerId: string|null,
+  isCallAnswered: boolean,
+  isCalling: boolean,
+  isReady: boolean
 }
 
 type DispatchProps = {
@@ -60,9 +63,15 @@ class VideoCallPage extends React.Component<Props, State> {
 
   componentDidUpdate() {
     const recipientId = this.props.match.params.recipientId
+    const readyToMakeACall = this.props.isReady
+      && !this.props.isCallAnswered
+      && !this.props.isCalling
+      && this.state.localStream
+
     if (!this.state.localStream) {
       this.loadCamera()
-    } else if (recipientId) {
+    } else if (recipientId && readyToMakeACall) {
+      console.log('ddd', this.state.localStream)
       this.props.startCall(recipientId)
     }
   }
@@ -133,7 +142,10 @@ const StyledVideoCallPage = styled(VideoCallPage)`
 `
 
 const mapStateToProps = (state: ReduxState) => ({
-  peerId: peerId(state)
+  peerId: peerId(state),
+  isCallAnswered: isCallAnswered(state),
+  isCalling: isCalling(state),
+  isReady: isReady(state)
 })
 
 const mapDispatchToProps = {
