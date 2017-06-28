@@ -21,11 +21,11 @@
   version "7.0.14"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.14.tgz#1470fa002a113316ac9d9ad163fc738c7a0de2a4"
 
-"@types/peerjs@0.0.28":
-  version "0.0.28"
-  resolved "https://registry.yarnpkg.com/@types/peerjs/-/peerjs-0.0.28.tgz#677c1dc730220162cbfa501c0ee75ff7e4b0f764"
+"@types/react-copy-to-clipboard@^4.2.3":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/@types/react-copy-to-clipboard/-/react-copy-to-clipboard-4.2.3.tgz#9da09521fc0f7768f9ad9781d9768f1cde81e5bd"
   dependencies:
-    "@types/webrtc" "*"
+    "@types/react" "*"
 
 "@types/react-dom@^15.5.0":
   version "15.5.0"
@@ -77,7 +77,7 @@
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/@types/redux-actions/-/redux-actions-1.2.4.tgz#92d4cbcef6495a7d7129264210586c6f865667aa"
 
-"@types/webrtc@*":
+"@types/webrtc@0.0.21":
   version "0.0.21"
   resolved "https://registry.yarnpkg.com/@types/webrtc/-/webrtc-0.0.21.tgz#bc3cfb7e22add284761e5d63efad664b0eba8b86"
 
@@ -4544,10 +4544,11 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-peerjs@^0.3.14:
+"peerjs@git+ssh://git@github.com:Enet4/peerjs.git#typescript-types":
   version "0.3.14"
-  resolved "https://registry.yarnpkg.com/peerjs/-/peerjs-0.3.14.tgz#5f934eb09a04ce237a47d52f4766c9373da2511e"
+  resolved "git+ssh://git@github.com/Enet4/peerjs.git#7d67518abcd1926a7b70834ca81eacf795aabc67"
   dependencies:
+    "@types/webrtc" "0.0.21"
     eventemitter3 "^0.1.5"
     js-binarypack "0.0.9"
     reliable "git+https://github.com/michelle/reliable.git"

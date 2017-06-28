@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as Peer from 'peerjs'
 import { connect } from 'react-redux'
 import { State as ReduxState } from '../modules'
 import {
@@ -9,7 +10,6 @@ import {
   recipientId,
   isHost
 } from '../modules/peerjs'
-const PeerJS: typeof Peer = require('peerjs') // TODO: f**k peerJs declaring a namespace...
 
 /**
  * Starts a real time connection between two clients using PeerJS
@@ -48,12 +48,12 @@ type DispatchProps = {
 type Props = StateProps & DispatchProps & OwnProps
 
 class PeerConnection extends React.Component<Props, {}> {
-  peer: PeerJs.Peer
-  incomingCall: PeerJs.MediaConnection
+  peer: Peer
+  incomingCall: Peer.MediaConnection
   props: Props
 
   componentDidMount() {
-    this.peer = new PeerJS({ secure: true, host: 'server-atxqpdgwmp.now.sh', port: 443 })
+    this.peer = new Peer({ secure: true, host: 'server-atxqpdgwmp.now.sh', port: 443 })
     this.peer.on('open', (peerId) => {
       if (this.props.onOpen) {
         this.props.onOpen(peerId)
@@ -82,12 +82,12 @@ class PeerConnection extends React.Component<Props, {}> {
     }
   }
 
-  handleIncomingCall = (call: PeerJs.MediaConnection) => {
+  handleIncomingCall = (call: Peer.MediaConnection) => {
     this.incomingCall = call
     this.props.receiveCall(call.peer)
   }
 
-  handleCall = (props: Props, call: PeerJs.MediaConnection) => {
+  handleCall = (props: Props, call: Peer.MediaConnection) => {
     call.on('stream', (remoteStream: MediaStream) => {
       if (props.isHost) {
         this.props.callAccepted()
