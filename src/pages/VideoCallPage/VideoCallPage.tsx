@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import * as Router from 'react-router'
 import * as Notifications from 'react-notification-system-redux'
+import * as CopyToClipboard from 'react-copy-to-clipboard'
 import { actions, peerId } from '../../modules/peerjs'
 import { State as ReduxState } from '../../modules'
 import styled from '../../constants/themed-components'
@@ -11,7 +12,6 @@ import { FullscreenVideo } from './FullscreenVideo'
 import { PopupVideo } from './PopupVideo'
 import { Sidebar } from './Sidebar'
 import { Button } from '../../ui/Button'
-const CopyToClipboard = require('react-copy-to-clipboard') // FIXME: when I know how
 
 const ContentContainer = styled.div`
   display: flex
