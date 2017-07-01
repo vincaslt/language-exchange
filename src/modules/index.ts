@@ -1,5 +1,6 @@
 import { combineReducers, Action } from 'redux'
 import { reducer as peerjs, PeerJsState } from './peerjs'
+import { reducer as chat, ChatState } from './chat'
 import {
   reducer as notifications,
   NotificationsReducer
@@ -7,12 +8,14 @@ import {
 
 interface State {
   peerjs: PeerJsState,
-  notifications: NotificationsReducer<Action>
+  notifications: NotificationsReducer<Action>,
+  chat: ChatState
 }
 
 const reducers = combineReducers({
   peerjs,
-  notifications
+  notifications,
+  chat
 })
 
 export { State, reducers }

@@ -24,7 +24,7 @@ const StyledChat = styled(Chat)`
   width: 400px
   height: 300px
   border: 1px solid ${({ theme }) => theme.colors.light}
-  border-radius: 10px
+  border-radius: 5px
 `
 
 export { StyledChat as Chat }

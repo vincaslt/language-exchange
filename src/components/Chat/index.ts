@@ -1,1 +1,5 @@
 export { Chat } from './Chat'
+export { ChatWindow } from './ChatWindow'
+export { ChatInput } from './ChatInput'
+export { ChatMessage } from './ChatMessage'
+export { ChatContainer } from './ChatContainer'

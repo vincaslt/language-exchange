@@ -127,6 +127,7 @@ class VideoCallPage extends React.Component<Props, State> {
     const minimizedLocalVideo = this.state.remoteStream
       ? <PopupVideo source={this.state.localStream} muted />
       : null
+    
     return (
       <HeaderWithContent fullscreen>
         {peerConnection}

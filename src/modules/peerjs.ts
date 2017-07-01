@@ -1,6 +1,7 @@
 import { createAction, handleActions, Action } from 'redux-actions'
 import { Selector } from 'reselect'
 import { State as ReduxState } from './index'
+import { safeSelect } from '../utils/reduxUtils'
 
 export type PeerJsState = {
   peerId: string,
@@ -10,9 +11,9 @@ export type PeerJsState = {
   recipientId?: string,
   isReady?: boolean,
   isHost?: boolean
-} | null
+}|{}
 
-export const initialState: PeerJsState = null
+export const initialState: PeerJsState = {}
 
 export const types = {
   INITIALIZE: 'PEER_JS/INITIALIZE',
@@ -42,7 +43,7 @@ export const reducer = handleActions<PeerJsState, string>({
       isCalling: false,
       isCallAnswered: false,
       isReady: true
-    } : null
+    } : {}
   },
   [types.RECEIVE_CALL]: (state: PeerJsState, action: Action<string>): PeerJsState => ({
     ...state,
@@ -66,7 +67,7 @@ export const reducer = handleActions<PeerJsState, string>({
     isCalling: false,
     isCallAnswered: true
   }),
-  [types.DROP_CALL]: (state: PeerJsState): PeerJsState => null,
+  [types.DROP_CALL]: (state: PeerJsState): PeerJsState => ({}),
   [types.CALL_DROPPED]: (state: PeerJsState): PeerJsState => ({
     ...state,
     recipientId: undefined,
@@ -74,15 +75,12 @@ export const reducer = handleActions<PeerJsState, string>({
   })
 }, initialState)
 
-const safePeerSelect = 
-  <T>(property: string) => 
-    (state: ReduxState): T => 
-      (state.peerjs && state.peerjs[property] || null) as T
+const safePeerSelect = safeSelect<ReduxState>('peerjs')
 
 export const isReady: Selector<ReduxState, boolean> = safePeerSelect<boolean>('isReady')
 export const isCalling: Selector<ReduxState, boolean> = safePeerSelect<boolean>('isCalling')
 export const isCallIncoming: Selector<ReduxState, boolean> = safePeerSelect<boolean>('isCallIncoming')
 export const isCallAnswered: Selector<ReduxState, boolean> = safePeerSelect<boolean>('isCallAnswered')
 export const isHost: Selector<ReduxState, boolean> = safePeerSelect<boolean>('isHost')
-export const recipientId: Selector<ReduxState, string|null> = safePeerSelect<string|null>('recipientId')
-export const peerId: Selector<ReduxState, string|null> = safePeerSelect<string|null>('peerId')
+export const recipientId: Selector<ReduxState, string|undefined> = safePeerSelect<string|undefined>('recipientId')
+export const peerId: Selector<ReduxState, string|undefined> = safePeerSelect<string|undefined>('peerId')

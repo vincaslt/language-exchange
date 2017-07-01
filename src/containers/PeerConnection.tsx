@@ -30,7 +30,7 @@ type OwnProps = {
 }
 
 type StateProps = {
-  recipientId: string|null,
+  recipientId?: string,
   isCallIncoming: boolean,
   isCalling: boolean,
   isCallAnswered: boolean,
