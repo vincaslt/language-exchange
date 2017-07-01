@@ -5,6 +5,7 @@ import { Navigation } from './Navigation'
 import { Link } from '../../ui/Link'
 import { HeaderContent } from './HeaderContent'
 import { constants } from './constants'
+import { routeNames } from '../../constants/routeNames'
 
 const Header = ({ ...rest }) => (
   <div {...rest}>
@@ -13,7 +14,7 @@ const Header = ({ ...rest }) => (
       <Navigation>
         <Link href="#" target="_blank">link1</Link>
         <Link href="#">link2</Link>
-        <Link to={`/chat`}>Chat</Link>
+        <Link to={routeNames.call}>Chat</Link>
       </Navigation>
     </HeaderContent>
   </div>

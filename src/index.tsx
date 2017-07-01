@@ -8,6 +8,7 @@ import { HomePage } from './pages/HomePage'
 import { Notifications } from './containers/Notifications'
 import { VideoCallPage } from './pages/VideoCallPage'
 import { store, browserHistory } from './store'
+import { routeNames } from './constants/routeNames'
 import * as Theme from './constants/theme'
 
 import 'font-awesome/css/font-awesome.css'
@@ -18,8 +19,8 @@ const Application = () => (
   <ThemeProvider theme={Theme}>
     <div>
       <Notifications />
-      <Route exact path="/" component={HomePage} />
-      <Route path="/chat/:recipientId?" component={VideoCallPage} />
+      <Route exact path={routeNames.home} component={HomePage} />
+      <Route path={`${routeNames.call}/:recipientId?`} component={VideoCallPage} />
     </div>
   </ThemeProvider>
 )

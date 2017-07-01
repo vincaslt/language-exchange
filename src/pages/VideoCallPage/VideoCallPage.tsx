@@ -12,6 +12,8 @@ import { FullscreenVideo } from './FullscreenVideo'
 import { PopupVideo } from './PopupVideo'
 import { Sidebar } from './Sidebar'
 import { Button } from '../../ui/Button'
+import { push } from 'connected-react-router'
+import { routeNames } from '../../constants/routeNames'
 
 const ContentContainer = styled.div`
   display: flex
@@ -43,6 +45,7 @@ type StateProps = {
 type DispatchProps = {
   startCall: typeof actions.startCall
   showInfoNotification: typeof Notifications.info
+  push: typeof push
 }
 
 type Props = StateProps & OwnProps & DispatchProps
@@ -71,7 +74,6 @@ class VideoCallPage extends React.Component<Props, State> {
     if (!this.state.localStream) {
       this.loadCamera()
     } else if (recipientId && readyToMakeACall) {
-      console.log('ddd', this.state.localStream)
       this.props.startCall(recipientId)
     }
   }
@@ -109,6 +111,7 @@ class VideoCallPage extends React.Component<Props, State> {
 
   handleCloseCall = () => {
     this.setState({ ...this.state, localStream: undefined, remoteStream: undefined })
+    this.props.push(routeNames.call)
   }
 
   render() {
@@ -150,7 +153,8 @@ const mapStateToProps = (state: ReduxState) => ({
 
 const mapDispatchToProps = {
   startCall: actions.startCall,
-  showInfoNotification: Notifications.info
+  showInfoNotification: Notifications.info,
+  push: push
 }
 
 const ConnectedVideoCallPage = connect<{}, DispatchProps, OwnProps>(

@@ -1,11 +1,9 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import FontAwesome = require('react-fontawesome') // FIXME: wait for PR merge
+import * as FontAwesome from 'react-fontawesome'
 
 type Props = {
-  options: {
-    name: string // FIXME: use PropTypes from FA when available
-  }
+  options: FontAwesome.FontAwesomeProps
 } & React.HTMLAttributes<HTMLButtonElement>
 
 const IconButton = ({ options, ...rest }: Props) => (
