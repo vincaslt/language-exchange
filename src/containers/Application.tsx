@@ -17,8 +17,8 @@ type Props = StateProps
 
 const Application = ({ visibleChatWindows }: Props) => {
   const chatWindows = Object.entries(visibleChatWindows)
-    .map(([id, window]) => (
-      <ChatContainer key={id} />
+    .map(([id, window], index) => (
+      <ChatContainer key={id} order={index} />
     ))
   return (
     <div>
