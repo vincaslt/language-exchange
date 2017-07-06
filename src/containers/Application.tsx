@@ -7,10 +7,11 @@ import { VideoCallPage } from '../pages/VideoCallPage'
 import { routeNames } from '../constants/routeNames'
 import { State as ReduxState } from '../modules'
 import { ChatContainer } from '../components/Chat'
-import { visibleChatWindows, ChatState } from '../modules/chat'
+import { ChatConnection } from '../containers/ChatConnection'
+import { visibleChatWindows, ChatWindows } from '../modules/chat'
 
 type StateProps = {
-  visibleChatWindows: ChatState
+  visibleChatWindows: ChatWindows
 }
 
 type Props = StateProps
@@ -23,6 +24,7 @@ const Application = ({ visibleChatWindows }: Props) => {
   return (
     <div>
       <Notifications />
+      <ChatConnection />
       <Route exact path={routeNames.home} component={HomePage} />
       <Route path={`${routeNames.call}/:recipientId?`} component={VideoCallPage} />
       {chatWindows}

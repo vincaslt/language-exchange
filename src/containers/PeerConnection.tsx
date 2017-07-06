@@ -47,13 +47,15 @@ type DispatchProps = {
 
 type Props = StateProps & DispatchProps & OwnProps
 
+const host = 'server-atxqpdgwmp.now.sh'
+
 class PeerConnection extends React.Component<Props, {}> {
   peer: Peer
   incomingCall: Peer.MediaConnection
   props: Props
 
   componentDidMount() {
-    this.peer = new Peer({ secure: true, host: 'server-atxqpdgwmp.now.sh', port: 443 })
+    this.peer = new Peer({ secure: true, host, port: 443 })
     this.peer.on('open', (peerId) => {
       if (this.props.onOpen) {
         this.props.onOpen(peerId)

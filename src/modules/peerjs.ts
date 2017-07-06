@@ -1,7 +1,7 @@
 import { createAction, handleActions, Action } from 'redux-actions'
 import { Selector } from 'reselect'
 import { State as ReduxState } from './index'
-import { safeSelect } from '../utils/reduxUtils'
+import { safeSelect, withPayload } from '../utils/reduxUtils'
 
 export type PeerJsState = {
   peerId: string,
@@ -37,13 +37,13 @@ export const actions = {
 
 export const reducer = handleActions<PeerJsState, string>({
   [types.INITIALIZE]: (state: PeerJsState, action: Action<string>): PeerJsState => {
-    return action.payload ? {
+    return withPayload(action, (payload) => ({
       peerId: action.payload,
       isCallIncoming: false,
       isCalling: false,
       isCallAnswered: false,
       isReady: true
-    } : {}
+    }), state)
   },
   [types.RECEIVE_CALL]: (state: PeerJsState, action: Action<string>): PeerJsState => ({
     ...state,
