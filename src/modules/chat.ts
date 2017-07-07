@@ -9,6 +9,7 @@ interface ChatWindow {
 }
 
 export interface ChatMessage {
+  recipient: string
   content: string
 }
 

@@ -16,18 +16,29 @@ type DispatchProps = {
 
 type Props = StateProps & DispatchProps
 
+interface MessageModel {
+  sender: { id: string, name: string}
+  content: string
+}
+
 class ChatConnection extends React.Component<Props> {
   props: Props
   socket: SocketIOClient.Socket
 
   componentDidMount() {
     this.socket = io(url)
+
+    this.socket.on('chatMessage', this.chatMessageHandler)
   }
 
   componentWillReceiveProps(nextProps: Props) {
     if (this.socket.connected && nextProps.messageQueue.length > 0) {
       this.props.sendMessages(this.socket)
     }
+  }
+
+  chatMessageHandler = ({ sender, content }: MessageModel) => {
+    console.log(`received: ${sender.name}[${sender.id}]: ${content}`)
   }
 
   render() {
