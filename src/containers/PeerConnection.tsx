@@ -59,25 +59,15 @@ class PeerConnection extends React.Component<Props, {}> {
   componentDidMount() {
     // TODO: remove race conditions
     if (this.props.userId) {
-      this.peer = new Peer(this.props.userId, { secure: true, host, port: 443 })
-      this.peer.on('open', (peerId) => {
-        if (this.props.onOpen) {
-          this.props.onOpen(peerId)
-        }
-        this.props.initializePeerJs(peerId)
-      })
-      this.peer.on('call', (call) => this.handleIncomingCall(call))
-    } else {
-      console.error('not yet ready') // TODO: remove later
+      this.initialize(this.props.userId)
     }
   }
 
-  componentWillUnmount() {
-    this.cleanupConnection()
-    this.props.dropCall()
-  }
-
   componentWillReceiveProps(nextProps: Props) {
+    if (!this.props.userId && nextProps.userId) {
+      this.initialize(nextProps.userId)
+    }
+
     if (!this.props.isCallAnswered && nextProps.isCallAnswered &&
         this.props.isCallIncoming && !nextProps.isCallIncoming) {
       this.incomingCall.answer(nextProps.localStream)
@@ -92,6 +82,22 @@ class PeerConnection extends React.Component<Props, {}> {
     if (this.props.isCallAnswered && !nextProps.isCallAnswered) {
       this.cleanupConnection()
     }
+  }
+
+  initialize(userId: string) {
+    this.peer = new Peer(userId, { secure: true, host, port: 443 })
+    this.peer.on('open', (peerId) => {
+      if (this.props.onOpen) {
+        this.props.onOpen(peerId)
+      }
+      this.props.initializePeerJs(peerId)
+    })
+    this.peer.on('call', (call) => this.handleIncomingCall(call))
+  }
+
+  componentWillUnmount() {
+    this.cleanupConnection()
+    this.props.dropCall()
   }
 
   cleanupConnection = () => {

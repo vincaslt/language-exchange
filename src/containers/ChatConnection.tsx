@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { State as ReduxState } from '../modules'
 import { messageQueue, ChatMessage, actions } from '../modules/chat'
 
-const url = 'http://localhost:5000'
+const url = 'https://language-exchange-api-pkmvjywloj.now.sh:443'
 
 type StateProps = {
   messageQueue: ChatMessage[]
