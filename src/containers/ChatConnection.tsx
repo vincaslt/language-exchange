@@ -11,15 +11,12 @@ type StateProps = {
 }
 
 type DispatchProps = {
+  connected: typeof actions.connected
   sendMessages: typeof actions.sendMessages
+  receivedMessage: typeof actions.receivedMessage
 }
 
 type Props = StateProps & DispatchProps
-
-interface MessageModel {
-  sender: { id: string, name: string}
-  content: string
-}
 
 class ChatConnection extends React.Component<Props> {
   props: Props
@@ -28,17 +25,14 @@ class ChatConnection extends React.Component<Props> {
   componentDidMount() {
     this.socket = io(url)
 
-    this.socket.on('chatMessage', this.chatMessageHandler)
+    this.socket.on('chatMessage', this.props.receivedMessage)
+    this.socket.on('handshake', ({ id }: { id: string }) => this.props.connected(id))
   }
 
   componentWillReceiveProps(nextProps: Props) {
     if (this.socket.connected && nextProps.messageQueue.length > 0) {
       this.props.sendMessages(this.socket)
     }
-  }
-
-  chatMessageHandler = ({ sender, content }: MessageModel) => {
-    console.log(`received: ${sender.name}[${sender.id}]: ${content}`)
   }
 
   render() {
@@ -51,7 +45,9 @@ const mapStateToProps = (state: ReduxState) => ({
 })
 
 const mapDispatchToProps = {
-  sendMessages: actions.sendMessages
+  connected: actions.connected,
+  sendMessages: actions.sendMessages,
+  receivedMessage: actions.receivedMessage
 }
 
 const ConnectedChatConnection = connect(

@@ -10,6 +10,7 @@ import {
   recipientId,
   isHost
 } from '../modules/peerjs'
+import { userId } from '../modules/chat'
 
 /**
  * Starts a real time connection between two clients using PeerJS
@@ -30,6 +31,7 @@ type OwnProps = {
 }
 
 type StateProps = {
+  userId?: string,
   recipientId?: string,
   isCallIncoming: boolean,
   isCalling: boolean,
@@ -55,14 +57,19 @@ class PeerConnection extends React.Component<Props, {}> {
   props: Props
 
   componentDidMount() {
-    this.peer = new Peer({ secure: true, host, port: 443 })
-    this.peer.on('open', (peerId) => {
-      if (this.props.onOpen) {
-        this.props.onOpen(peerId)
-      }
-      this.props.initializePeerJs(peerId)
-    })
-    this.peer.on('call', (call) => this.handleIncomingCall(call))
+    // TODO: remove race conditions
+    if (this.props.userId) {
+      this.peer = new Peer(this.props.userId, { secure: true, host, port: 443 })
+      this.peer.on('open', (peerId) => {
+        if (this.props.onOpen) {
+          this.props.onOpen(peerId)
+        }
+        this.props.initializePeerJs(peerId)
+      })
+      this.peer.on('call', (call) => this.handleIncomingCall(call))
+    } else {
+      console.error('not yet ready') // TODO: remove later
+    }
   }
 
   componentWillUnmount() {
@@ -124,6 +131,7 @@ class PeerConnection extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: ReduxState) => ({
+  userId: userId(state),
   recipientId: recipientId(state),
   isCallIncoming: isCallIncoming(state),
   isCalling: isCalling(state),

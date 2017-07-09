@@ -36,7 +36,7 @@ type OwnProps = Router.RouteComponentProps<{
 }>
 
 type StateProps = {
-  peerId: string|null,
+  peerId?: string,
   isCallAnswered: boolean,
   isCalling: boolean,
   isReady: boolean
@@ -158,7 +158,7 @@ const mapDispatchToProps = {
   push: push
 }
 
-const ConnectedVideoCallPage = connect<{}, DispatchProps, OwnProps>(
+const ConnectedVideoCallPage = connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,
   mapDispatchToProps
 )(StyledVideoCallPage)

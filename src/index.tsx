@@ -12,7 +12,6 @@ import 'font-awesome/css/font-awesome.css'
 import 'normalize.css'
 import './style.css'
 
-
 ReactDOM.render(
   <Provider store={store} >
     <ConnectedRouter history={browserHistory}>
