@@ -113,7 +113,7 @@ export const reducer = handleActions<ChatState, string|ChatMessage|ReceivedMessa
   [types.RECEIVED_MESSAGE]: (state: ChatState, action: Action<ReceivedMessage>): ChatState => (
     withPayload(action, (payload) => {
       const id = payload.sender.id
-      const window = state.windows[id]
+      const window = state.windows[id] || {}
       const messages = window.messages || []
       return ({
       ...state,
@@ -133,6 +133,10 @@ export const reducer = handleActions<ChatState, string|ChatMessage|ReceivedMessa
 }, initialState)
 
 export const chatWindows = (state: ReduxState) => state.chat.windows
+export const chatWindowMessages = (id: string) => createSelector(
+  chatWindows,
+  (windows) => windows[id].messages || []
+)
 
 /** Filters out only visible chat windows */
 export const visibleChatWindows = createSelector(
@@ -152,7 +156,7 @@ export const isActiveChatVisible = createSelector(
 
 export const isChatWindowVisible = (id: string) => createSelector(
   visibleChatWindows,
-  (windows) => windows[id] ? windows[id].visible : false
+  (windows) => !!windows[id].visible
 )
 
 export const messageQueue = (state: ReduxState) => state.chat.queue

@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import { MessageButton as MessageButtonComponent } from '../components/MessageButton'
 import { State as ReduxState } from '../modules'
 import { actions, isActiveChatVisible } from '../modules/chat'
-import { peerId } from '../modules/peerjs'
+import { recipientId, isCallAnswered } from '../modules/peerjs'
 
 type StateProps = {
   isActiveChatVisible: boolean,
-  peerId: string
+  recipientId: string
+  isCallAnswered: boolean
 }
 
 type DispatchProps = {
@@ -18,29 +19,31 @@ type Props = StateProps & DispatchProps
 
 class ActiveCallMessageButton extends React.Component<Props> {
   handleClick = () => {
-    this.props.toggleWindow(this.props.peerId)
+    this.props.toggleWindow(this.props.recipientId)
   }
 
   render() {
     const {
       isActiveChatVisible,
-      peerId,
+      recipientId,
+      isCallAnswered,
       toggleWindow,
       ...rest
     } = this.props
-    return (
+    return isCallAnswered && recipientId ? (
       <MessageButtonComponent
         toggled={isActiveChatVisible}
         onClick={this.handleClick}
         {...rest}
       />
-    )
+    ) : null
   }
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  peerId: peerId(state),
-  isActiveChatVisible: isActiveChatVisible(state)
+  recipientId: recipientId(state),
+  isActiveChatVisible: isActiveChatVisible(state),
+  isCallAnswered: isCallAnswered(state)
 })
 
 const mapDispatchToProps = {
