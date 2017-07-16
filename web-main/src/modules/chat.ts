@@ -3,6 +3,7 @@ import { createSelector } from 'reselect'
 import { State as ReduxState } from './index'
 import { peerId } from './peerjs'
 import { withPayload } from '../utils/reduxUtils'
+import { Chat } from 'language-exchange-commons'
 
 // TODO: status or something, depending on if queued or not
 interface ChatWindow {
@@ -15,10 +16,7 @@ export interface ChatWindowMessage {
   content: string
 }
 
-export interface ChatMessage {
-  recipient: string
-  content: string
-}
+export type ChatMessage = Chat.Message
 
 export interface ChatWindows {
   [key: string]: ChatWindow
@@ -28,14 +26,6 @@ export interface ChatState {
   userId?: string, // TODO: centralize userId and remove race with peerjs
   queue: ChatMessage[]
   windows: ChatWindows
-}
-
-export interface ReceivedMessage {
-  sender: {
-    id: string,
-    name: string
-  },
-  content: string
 }
 
 // <RecipientId, ChatWindow>
@@ -58,11 +48,11 @@ export const actions = {
   queueMessage: createAction(types.QUEUE_MESSAGE, (message: ChatMessage) => message),
   sendMessages: createAction(types.SEND_MESSAGES, (socket: SocketIOClient.Socket) => socket),
   clearQueue: createAction(types.CLEAR_QUEUE),
-  receivedMessage: createAction(types.RECEIVED_MESSAGE, (message: ReceivedMessage) => message),
+  receivedMessage: createAction(types.RECEIVED_MESSAGE, (message: Chat.ReceivedMessage) => message),
   connected: createAction(types.CONNECTED, (userId: string) => userId)
 }
 
-export const reducer = handleActions<ChatState, string|ChatMessage|ReceivedMessage>({
+export const reducer = handleActions<ChatState, string|ChatMessage|Chat.ReceivedMessage>({
   [types.CONNECTED]: (state: ChatState, action: Action<string>): ChatState => (
     withPayload(action, (payload) => ({
       ...state,
@@ -110,7 +100,7 @@ export const reducer = handleActions<ChatState, string|ChatMessage|ReceivedMessa
     }, {...state})
   },
   // TODO: have aunique ID for all rooms, not based on senderId
-  [types.RECEIVED_MESSAGE]: (state: ChatState, action: Action<ReceivedMessage>): ChatState => (
+  [types.RECEIVED_MESSAGE]: (state: ChatState, action: Action<Chat.ReceivedMessage>): ChatState => (
     withPayload(action, (payload) => {
       const id = payload.sender.id
       const window = state.windows[id] || {}

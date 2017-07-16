@@ -68,6 +68,12 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-fontawesome@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@types/react-fontawesome/-/react-fontawesome-1.6.0.tgz#e95c82c9a819a062ccd50fc5b8a182b6c668cd66"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-notification-system-redux@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@types/react-notification-system-redux/-/react-notification-system-redux-1.0.3.tgz#cff8166c80d6ae6ec6e6e841877b2dbba2b50c3c"
@@ -4213,6 +4219,9 @@ klaw@^1.0.0:
   resolved "https://registry.yarnpkg.com/klaw/-/klaw-1.3.1.tgz#4088433b46b3b1ba259d78785d8e96f73ba02439"
   optionalDependencies:
     graceful-fs "^4.1.9"
+
+"language-exchange-commons@file:..\\commons":
+  version "1.0.0"
 
 latest-version@^2.0.0:
   version "2.0.0"

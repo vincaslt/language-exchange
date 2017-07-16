@@ -1,0 +1,45 @@
+{
+  "name": "language-exchange-chat-service",
+  "version": "1.0.0",
+  "description": "Chat service for language-exchange application",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env PORT=5000 ts-node index.ts",
+    "watch": "nodemon -e ts -w ./ -x npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vincaslt/language-exchange-api.git"
+  },
+  "keywords": [
+    "language"
+  ],
+  "author": "Vincas Stonys",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vincaslt/language-exchange-api/issues"
+  },
+  "homepage": "https://github.com/vincaslt/language-exchange-api#readme",
+  "dependencies": {
+    "@types/core-js": "^0.9.42",
+    "@types/socket.io": "^1.4.29",
+    "@types/uuid": "^3.0.0",
+    "core-js": "^2.4.1",
+    "cross-env": "^5.0.1",
+    "express": "^4.15.3",
+    "install": "^0.10.1",
+    "language-exchange-commons": "file:..\\commons",
+    "nodemon": "^1.11.0",
+    "npm": "^5.1.0",
+    "socket.io": "^2.0.3",
+    "ts-node": "^3.2.0",
+    "typescript-rest": "^1.0.4",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "tslint": "^5.4.3",
+    "tslint-loader": "^3.5.3",
+    "typescript": "^2.4.1"
+  }
+}
