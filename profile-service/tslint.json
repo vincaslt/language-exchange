@@ -1,6 +1,10 @@
 {
     "extends": ["tslint:recommended"],
     "rules": {
+        "arrow-parens": [
+            true,
+            "ban-single-arg-parens"
+        ],
         "align": [
             true,
             "parameters",
@@ -23,12 +27,6 @@
         "jsx-boolean-value": [true, "never"],
         "label-position": true,
         "max-line-length": [ true, 120 ],
-        "member-ordering": [
-            true,
-            "public-before-private",
-            "static-before-instance",
-            "variables-before-functions"
-        ],
         "no-any": true,
         "no-arg": true,
         "no-bitwise": true,
@@ -51,6 +49,7 @@
         "no-switch-case-fall-through": true,
         "no-trailing-whitespace": false,
         "no-unused-expression": true,
+        "no-unused-variable": true,
         "no-use-before-declare": true,
         "one-line": [
             true,
@@ -59,6 +58,7 @@
             "check-open-brace",
             "check-whitespace"
         ],
+        "ordered-imports": ["any"],
         "quotemark": [true, "single"],
         "radix": true,
         "semicolon": [true, "never"],

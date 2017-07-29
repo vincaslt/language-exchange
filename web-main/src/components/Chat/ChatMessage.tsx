@@ -7,8 +7,8 @@ interface Props {
 }
 
 const Container = styled.div`
-  display: flex
-  flex-direction: row
+  display: flex;
+  flex-direction: row;
 `
 
 const ChatMessage = ({ secondary, children, ...rest }: Props) => (
@@ -20,13 +20,13 @@ const ChatMessage = ({ secondary, children, ...rest }: Props) => (
 )
 
 const StyledChatMessage = styled(ChatMessage)`
-  padding: 10px
-  margin: 5px
-  border: 0
-  color: ${({ secondary, theme }) => secondary ? theme.colors.dark : theme.colors.text}
-  background-color: ${({ secondary, theme }) => secondary ? theme.colors.light : theme.colors.secondaryLight}
-  border-radius: 10px
-  max-width: 75%
+  padding: 10px;
+  margin: 5px;
+  border: 0;
+  color: ${({ secondary, theme }) => secondary ? theme.colors.dark : theme.colors.text};
+  background-color: ${({ secondary, theme }) => secondary ? theme.colors.light : theme.colors.secondaryLight};
+  border-radius: 10px;
+  max-width: 75%;
 `
 
 export { StyledChatMessage as ChatMessage }

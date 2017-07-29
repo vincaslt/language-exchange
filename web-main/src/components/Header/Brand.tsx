@@ -7,7 +7,7 @@ const Brand = ({ ...rest }) => (
 )
 
 const StyledBrand = styled(Brand)`
-  padding: 0 10px
+  padding: 0 10px;
 `
 
 export { StyledBrand as Brand }

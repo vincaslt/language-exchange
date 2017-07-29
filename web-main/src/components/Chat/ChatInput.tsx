@@ -35,11 +35,11 @@ class ChatInput extends React.Component<Props, State> {
 }
 
 const StyledChatInput = styled(ChatInput)`
-  display: flex
-  justify-content: stretch
-  align-items: center
-  padding: 10px
-  width: 100%
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
 `
 
 export { StyledChatInput as ChatInput }

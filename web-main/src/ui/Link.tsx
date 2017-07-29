@@ -19,8 +19,8 @@ class Link extends React.Component<Props> {
 }
 
 const StyledLink = styled(Link)`
-  padding: 0 10px
-  color: ${({ theme }) => theme.colors.light}
+  padding: 0 10px;
+  color: ${({ theme }) => theme.colors.light};
 `
 
 export { StyledLink as Link }

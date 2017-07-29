@@ -14,9 +14,9 @@ const MessageButton = ({ toggled, ...props }: Props) => (
 )
 
 const StyledMessageButton = styled(MessageButton)`
-  color: ${({ toggled, theme }) => toggled ? theme.colors.secondary : theme.colors.white }
-  background: transparent
-  border: transparent
+  color: ${({ toggled, theme }) => toggled ? theme.colors.secondary : theme.colors.white };
+  background: transparent;
+  border: transparent;
 `
 
 export { StyledMessageButton as MessageButton }

@@ -7,12 +7,12 @@ const MainSection = ({ ...rest }) => (
 )
 
 const StyledMainSection = styled(MainSection)`
-  background-color: ${({ theme }) => theme.colors.secondary}
-  background-image: url(${backgroundImage})
-  background-size: contain
-  background-position: center bottom
-  background-repeat: no-repeat
-  min-height: 100vh
+  background-color: ${({ theme }) => theme.colors.secondary};
+  background-image: url(${backgroundImage});
+  background-size: contain;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 `
 
 export { StyledMainSection as MainSection }

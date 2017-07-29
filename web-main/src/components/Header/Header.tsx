@@ -21,14 +21,14 @@ const Header = ({ ...rest }) => (
 )
 
 const StyledHeader = styled(Header)`
-  position: fixed
-  width: 100%
-  background-color: ${({ theme }) => theme.colors.secondary}
-  height: ${constants.height}
-  display: flex
-  flex-direction: row
-  justify-content: center
-  align-items: center
+  position: fixed;
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.secondary};
+  height: ${constants.height};
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `
 
 export { StyledHeader as Header }

@@ -16,19 +16,19 @@ import { push } from 'connected-react-router'
 import { routeNames } from '../../constants/routeNames'
 
 const ContentContainer = styled.div`
-  display: flex
-  flex-direction: row
-  justify-content: flex-between
-  background-color: ${({ theme }) => theme.colors.black}
-  height: 100%
-  width: 100%
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-between;
+  background-color: ${({ theme }) => theme.colors.black};
+  height: 100%;
+  width: 100%;
 `
 
 const NotificationActions = styled.div`
-  margin-top: 10px
-  display: flex
-  flex-direction: row
-  justify-content: flex-end
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 `
 
 type OwnProps = Router.RouteComponentProps<{
@@ -142,7 +142,7 @@ class VideoCallPage extends React.Component<Props, State> {
 }
 
 const StyledVideoCallPage = styled(VideoCallPage)`
-  background-color: ${({ theme }) => theme.colors.white}
+  background-color: ${({ theme }) => theme.colors.white};
 `
 
 const mapStateToProps = (state: ReduxState) => ({
