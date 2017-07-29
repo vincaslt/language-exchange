@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from '../constants/themed-components'
-import { Header, constants as headerConstants} from './Header'
+import { Header, constants as headerConstants } from './Header'
 
 interface Props {
   children?: React.ReactNode,
