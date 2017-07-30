@@ -12,3 +12,5 @@ export namespace Chat {
     }
   }
 }
+
+// TODO: move to DTOs

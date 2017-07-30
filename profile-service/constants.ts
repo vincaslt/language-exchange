@@ -1,0 +1,1 @@
+export const jwtSecret = 'MFps4SCz2RjZy2eAOSG3irbJP40kGNxl'

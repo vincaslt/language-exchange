@@ -7,9 +7,9 @@ export class User {
   public id: number
   
   @Column()
-  public name: string
+  public username: string
 
-  constructor(name?: string) {
-    this.name = name
+  constructor(username?: string) {
+    this.username = username
   }
 }
