@@ -11,8 +11,8 @@ import { getEntityManager } from 'typeorm'
 import * as passport from 'passport'
 import { User } from 'language-exchange-commons/entities'
 import { Login } from 'language-exchange-commons/dto'
+import { jwtSecret } from 'language-exchange-commons/constants'
 import { dbconfig } from '../dbconfig'
-import { jwtSecret } from '../constants'
 
 @JsonController()
 export class UserController {
@@ -27,7 +27,7 @@ export class UserController {
       console.error(error)
     }
   }
-  
+
   @Get('/protected')
   public protectedRoute(@CurrentUser({ required: true }) user: User) {
     return user
