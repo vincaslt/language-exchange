@@ -13,7 +13,7 @@ export interface HandlerPayload {
 }
 
 const createHandlers = (payload: HandlerPayload) => {
-  handlers.forEach((handler) => handler(payload))
+  handlers.forEach(handler => handler(payload))
 }
 
 export { createHandlers }

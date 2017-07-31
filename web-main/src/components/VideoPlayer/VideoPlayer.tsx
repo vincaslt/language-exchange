@@ -3,13 +3,13 @@ import { isString } from '../../utils/stringUtils'
 
 type SourceType = MediaStream | string | undefined
 
-type Props = React.HTMLAttributes<HTMLVideoElement> & {
+type Props = React.AllHTMLAttributes<HTMLMediaElement> & {
   source: SourceType,
   onStartPlaying?: Function
 }
 
 class VideoPlayer extends React.Component<Props, {}> {
-  videoPlayer: HTMLVideoElement
+  videoPlayer: HTMLMediaElement
   eventListener: EventListener
 
   componentDidMount() {

@@ -8,29 +8,30 @@ import { jwtSecret } from 'language-exchange-commons/constants'
 
 const io = Server()
 
-io.use(socketioJwt.authorize({
-  secret: jwtSecret,
-  handshake: true
-}))
-
 // Register event handlers
-io.on('connection', socket => {
+io.sockets.on('connection', socketioJwt.authorize({
+  secret: jwtSecret,
+  timeout: 15000
+})).on('authenticated', socket => {
+  const id = socket.decoded_token.id // TODO: type / user model
+
   function random(max: number) {
     return Math.random() * (max - 1) + 1
   }
-  const id = UUID()
+
   const sender = ActiveUsers.addActiveUser({
     id,
-    name: 'bob' + random(100),
+    name: 'bobik' + random(100), // TODO: get from database
     rooms: [],
     socket
   })
-  socket.emit('handshake', { id })
+  socket.emit('handshake', { id }) // TODO: No need, user should already know his ID
   console.info('joined: ', id)
-  
-  // TODO: resolve client id from jwt token
+
   createHandlers({ io, socket, sender })
 })
+
+// TODO: disconnect cleanup
 
 // Start listening for connections
 io.listen(process.env.PORT)

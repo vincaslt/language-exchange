@@ -7,7 +7,7 @@ const command = 'chatMessages'
 
 const createChatMessagesHandler = ({ socket, io, sender }: HandlerPayload) => {
   socket.on(command, ([...messages]: Chat.Message[]) => {
-    messages.forEach((message) => {
+    messages.forEach(message => {
       const room = ActiveUsers.enterRoomForTwo(sender.id, message.recipient)
       console.info('---')
       console.info('from: ', sender.id)

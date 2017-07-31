@@ -1,9 +1,9 @@
 import styled from '../../constants/themed-components'
 import { VideoPlayer, preloadableVideo } from '../../components/VideoPlayer'
 
-const StyledVideoPlayer = preloadableVideo(styled(VideoPlayer)`
+const StyledVideoPlayer = styled(preloadableVideo(VideoPlayer))`
   height: 100%;
-`)
+`
 
 const PopupVideo = styled(StyledVideoPlayer)`
   position: absolute;
