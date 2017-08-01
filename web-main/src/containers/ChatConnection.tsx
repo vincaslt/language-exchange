@@ -3,9 +3,9 @@ import * as io from 'socket.io-client'
 import { connect } from 'react-redux'
 import { State as ReduxState } from '../modules'
 import { messageQueue, ChatMessage, actions } from '../modules/chat'
-import { token } from '../modules/profile'
+import { token } from '../modules/token'
 
-const url =  'http://localhost:5000'
+const url = 'http://localhost:5000'
 
 type StateProps = {
   messageQueue: ChatMessage[],
