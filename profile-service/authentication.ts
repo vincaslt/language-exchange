@@ -3,7 +3,7 @@ import { ExtractJwt, Strategy as JwtStrategy, StrategyOptions } from 'passport-j
 import { RoutingControllersOptions, Action } from 'routing-controllers'
 import { User } from 'language-exchange-commons/entities'
 import { getEntityManager } from 'typeorm'
-import { jwtSecret } from 'language-exchange-commons/constants'
+import { jwtSecret } from './constants'
 
 /**
  * Writes authentication configuration to serverOptions

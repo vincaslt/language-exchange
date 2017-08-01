@@ -1,35 +1,23 @@
 import 'core-js'
 import * as Server from 'socket.io'
-import * as socketioJwt from 'socketio-jwt'
 import * as UUID from 'uuid/v4'
-import { createHandlers } from './handlers'
+import { createHandlers, authentication } from './handlers'
 import { ActiveUsers } from './managers/activeUsers'
-import { jwtSecret } from 'language-exchange-commons/constants'
 
 const io = Server()
 
-// Register event handlers
-io.sockets.on('connection', socketioJwt.authorize({
-  secret: jwtSecret,
-  timeout: 15000
-})).on('authenticated', socket => {
-  const id = socket.decoded_token.id // TODO: type / user model
-
-  function random(max: number) {
-    return Math.random() * (max - 1) + 1
-  }
-
+io.sockets.on('connection', authentication((socket, user) => {
   const sender = ActiveUsers.addActiveUser({
-    id,
-    name: 'bobik' + random(100), // TODO: get from database
+    id: user.id,
+    name: user.username,
     rooms: [],
     socket
   })
-  socket.emit('handshake', { id }) // TODO: No need, user should already know his ID
-  console.info('joined: ', id)
+  socket.emit('handshake', { id: user.id }) // TODO: No need, user should already know his ID
+  console.info('joined: ', user)
 
   createHandlers({ io, socket, sender })
-})
+}))
 
 // TODO: disconnect cleanup
 

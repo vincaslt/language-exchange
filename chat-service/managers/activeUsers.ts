@@ -7,7 +7,7 @@ interface Room {
 
 interface ActiveUser {
   name: string,
-  id: string
+  id: number
   socket: SocketIO.Socket
   rooms: string[]
 }
@@ -43,6 +43,7 @@ class ActiveUserManager {
       : this.createRoom([userId, recipientId]).id
   }
 
+  // TODO: Sync created rooms with database
   private createRoom(users: string[]) {
     const roomId = UUID()
     this.rooms[roomId] = {
