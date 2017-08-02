@@ -23,7 +23,6 @@ export interface ChatWindows {
 }
 
 export interface ChatState {
-  userId?: string, // TODO: centralize userId and remove race with peerjs
   queue: ChatMessage[]
   windows: ChatWindows
 }
@@ -49,14 +48,13 @@ export const actions = {
   sendMessages: createAction(types.SEND_MESSAGES, (socket: SocketIOClient.Socket) => socket),
   clearQueue: createAction(types.CLEAR_QUEUE),
   receivedMessage: createAction(types.RECEIVED_MESSAGE, (message: Chat.ReceivedMessage) => message),
-  connected: createAction(types.CONNECTED, (userId: string) => userId)
+  connected: createAction(types.CONNECTED)
 }
 
 export const reducer = handleActions<ChatState, string|ChatMessage|Chat.ReceivedMessage>({
   [types.CONNECTED]: (state: ChatState, action: Action<string>): ChatState => (
     withPayload(action, (payload) => ({
-      ...state,
-      userId: payload
+      ...state
     }), state)
   ),
   [types.TOGGLE_WINDOW]: (state: ChatState, action: Action<string>): ChatState => {
@@ -99,7 +97,7 @@ export const reducer = handleActions<ChatState, string|ChatMessage|Chat.Received
       return state
     }, {...state})
   },
-  // TODO: have aunique ID for all rooms, not based on senderId
+  // TODO: have a unique ID for all rooms, not based on senderId
   [types.RECEIVED_MESSAGE]: (state: ChatState, action: Action<Chat.ReceivedMessage>): ChatState => (
     withPayload(action, (payload) => {
       const id = payload.sender.id
@@ -150,4 +148,3 @@ export const isChatWindowVisible = (id: string) => createSelector(
 )
 
 export const messageQueue = (state: ReduxState) => state.chat.queue
-export const userId = (state: ReduxState) => state.chat.userId

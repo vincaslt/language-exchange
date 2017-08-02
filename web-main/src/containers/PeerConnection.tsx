@@ -10,7 +10,7 @@ import {
   recipientId,
   isHost
 } from '../modules/peerjs'
-import { userId } from '../modules/chat'
+import { userId } from '../modules/user'
 
 /**
  * Starts a real time connection between two clients using PeerJS
@@ -27,11 +27,10 @@ type OwnProps = {
   localStream?: MediaStream,
   onStream?: (stream: MediaStream) => void,
   onClose?: () => void
-  onOpen?: (peerId: string) => void
 }
 
 type StateProps = {
-  userId?: string,
+  userId: number,
   recipientId?: string,
   isCallIncoming: boolean,
   isCalling: boolean,
@@ -50,6 +49,7 @@ type DispatchProps = {
 type Props = StateProps & DispatchProps & OwnProps
 
 const host = 'server-atxqpdgwmp.now.sh'
+const port = 443
 
 class PeerConnection extends React.Component<Props, {}> {
   peer: Peer
@@ -57,10 +57,7 @@ class PeerConnection extends React.Component<Props, {}> {
   props: Props
 
   componentDidMount() {
-    // TODO: remove race conditions
-    if (this.props.userId) {
-      this.initialize(this.props.userId)
-    }
+    this.initialize(this.props.userId)
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -84,12 +81,10 @@ class PeerConnection extends React.Component<Props, {}> {
     }
   }
 
-  initialize(userId: string) {
-    this.peer = new Peer(userId, { secure: true, host, port: 443 })
+  initialize(userId: number) {
+    // TODO: Peer server should get id from token
+    this.peer = new Peer(userId.toString(), { secure: true, host, port })
     this.peer.on('open', (peerId) => {
-      if (this.props.onOpen) {
-        this.props.onOpen(peerId)
-      }
       this.props.initializePeerJs(peerId)
     })
     this.peer.on('call', (call) => this.handleIncomingCall(call))

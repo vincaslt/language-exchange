@@ -31,8 +31,7 @@ class ChatConnection extends React.Component<Props> {
     })
 
     this.socket.on('chatMessage', this.props.receivedMessage)
-    this.socket.on('handshake', ({ id }: { id: string }) => this.props.connected(id)) 
-    // TODO: request for profile info, and won't need this ^
+    this.socket.on('handshake', () => this.props.connected())
   }
 
   componentWillReceiveProps(nextProps: Props) {

@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { reducer as peerjs, PeerJsState } from './peerjs'
 import { reducer as chat, ChatState } from './chat'
 import { reducer as token, TokenState } from './token'
+import { reducer as user, UserState } from './user'
 import {
   reducer as notifications,
   NotificationsState
@@ -11,18 +12,21 @@ interface State {
   peerjs: PeerJsState,
   notifications: NotificationsState,
   chat: ChatState,
-  token: TokenState
+  token: TokenState,
+  user: UserState
 }
 
 const reducers = combineReducers({
   peerjs,
   notifications,
   chat,
-  token
+  token,
+  user
 })
 
 const persistedState = [
-  'token'
+  'token',
+  'user'
 ]
 
 export { State, reducers, persistedState }

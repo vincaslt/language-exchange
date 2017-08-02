@@ -5,10 +5,10 @@ import { takeLatest, put } from 'redux-saga/effects'
  * Automatically accepts all incomming peerjs calls
  * TODO: let the user manually accept them?
  */
-function* receiveCall() {
+function* receiveCallSaga() {
   yield put(actions.answerCall())
 }
 
 export default [
-  takeLatest(types.RECEIVE_CALL, receiveCall)
+  takeLatest(types.RECEIVE_CALL, receiveCallSaga)
 ]
