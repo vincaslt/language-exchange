@@ -1,9 +1,9 @@
 import { createAction, handleActions, Action } from 'redux-actions'
-import { UserModel } from 'language-exchange-commons/entities'
+import { Entities } from 'language-exchange-commons'
 import { State as ReduxState } from './index'
 import { withPayload, safeSelect } from '../utils/reduxUtils'
 
-export type UserState = UserModel | null
+export type UserState = Entities.UserModel | null
 
 export const initialState: UserState | null = null
 
@@ -13,12 +13,12 @@ export const types = {
 }
 
 export const actions = {
-  receiveUserInfo: createAction(types.RECEIVE_USER_INFO, (user: UserModel) => user),
+  receiveUserInfo: createAction(types.RECEIVE_USER_INFO, (user: Entities.UserModel) => user),
   requestUserInfo: createAction(types.REQUEST_USER_INFO)
 }
 
 export const reducer = handleActions<UserState, string>({
-  [types.RECEIVE_USER_INFO]: (state: UserState, action: Action<UserModel>): UserState => (
+  [types.RECEIVE_USER_INFO]: (state: UserState, action: Action<Entities.UserModel>): UserState => (
     withPayload(action, (payload) => (payload), state)
   )
 }, initialState)

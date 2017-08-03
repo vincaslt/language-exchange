@@ -2,13 +2,14 @@
   "name": "language-exchange-commons",
   "version": "1.0.0",
   "description": "",
-  "main": "index.d.ts",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Vincas Stonys",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.2",
     "typeorm": "0.1.0-alpha.33"
   }
 }

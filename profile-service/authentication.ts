@@ -1,7 +1,7 @@
 import * as passport from 'passport'
 import { ExtractJwt, Strategy as JwtStrategy, StrategyOptions } from 'passport-jwt'
 import { RoutingControllersOptions, Action } from 'routing-controllers'
-import { User } from 'language-exchange-commons/entities'
+import { Entities } from 'language-exchange-commons'
 import { getEntityManager } from 'typeorm'
 import { jwtSecret } from './constants'
 
@@ -18,7 +18,7 @@ export const initializeAuth = (serverOptions: RoutingControllersOptions) => {
 
   passport.use(new JwtStrategy(jwtOptions, async (payload, done) => {
     try {
-      const userRepository = getEntityManager().getRepository(User)
+      const userRepository = getEntityManager().getRepository(Entities.User)
       const user = await userRepository.findOneById(payload.id)
       return done(null, user || false)
     } catch (error) {

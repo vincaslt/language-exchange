@@ -1,3 +1,3 @@
-export class Login {
-  public username: string
+export interface Login {
+  username: string
 }

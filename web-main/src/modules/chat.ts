@@ -3,7 +3,7 @@ import { createSelector } from 'reselect'
 import { State as ReduxState } from './index'
 import { peerId } from './peerjs'
 import { withPayload } from '../utils/reduxUtils'
-import { Chat } from 'language-exchange-commons'
+import { Dto } from 'language-exchange-commons'
 
 // TODO: status or something, depending on if queued or not
 interface ChatWindow {
@@ -16,7 +16,7 @@ export interface ChatWindowMessage {
   content: string
 }
 
-export type ChatMessage = Chat.Message
+export type ChatMessage = Dto.ChatMessage
 
 export interface ChatWindows {
   [key: string]: ChatWindow
@@ -47,11 +47,11 @@ export const actions = {
   queueMessage: createAction(types.QUEUE_MESSAGE, (message: ChatMessage) => message),
   sendMessages: createAction(types.SEND_MESSAGES, (socket: SocketIOClient.Socket) => socket),
   clearQueue: createAction(types.CLEAR_QUEUE),
-  receivedMessage: createAction(types.RECEIVED_MESSAGE, (message: Chat.ReceivedMessage) => message),
+  receivedMessage: createAction(types.RECEIVED_MESSAGE, (message: Dto.ReceivedChatMessage) => message),
   connected: createAction(types.CONNECTED)
 }
 
-export const reducer = handleActions<ChatState, string|ChatMessage|Chat.ReceivedMessage>({
+export const reducer = handleActions<ChatState, string | ChatMessage | Dto.ReceivedChatMessage>({
   [types.CONNECTED]: (state: ChatState, action: Action<string>): ChatState => (
     withPayload(action, (payload) => ({
       ...state
@@ -98,7 +98,7 @@ export const reducer = handleActions<ChatState, string|ChatMessage|Chat.Received
     }, {...state})
   },
   // TODO: have a unique ID for all rooms, not based on senderId
-  [types.RECEIVED_MESSAGE]: (state: ChatState, action: Action<Chat.ReceivedMessage>): ChatState => (
+  [types.RECEIVED_MESSAGE]: (state: ChatState, action: Action<Dto.ReceivedChatMessage>): ChatState => (
     withPayload(action, (payload) => {
       const id = payload.sender.id
       const window = state.windows[id] || {}

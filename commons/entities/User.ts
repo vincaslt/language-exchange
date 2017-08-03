@@ -1,7 +1,12 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
+export interface UserModel {
+  id: number,
+  username: string
+}
+
 @Entity()
-export class User {
+export class User implements UserModel {
   
   @PrimaryGeneratedColumn()
   public id: number
@@ -10,6 +15,8 @@ export class User {
   public username: string
 
   constructor(username?: string) {
-    this.username = username
+    if (username) {
+      this.username = username
+    }
   }
 }
