@@ -18,12 +18,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "files": [
-    "node_modules/language-exchange-commons/index.ts"
-  ],
-  "include": [
-    "**/*.ts"
-  ],
   "exclude": [
     "node_modules",
     "build",
