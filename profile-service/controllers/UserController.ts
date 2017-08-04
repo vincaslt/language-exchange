@@ -9,8 +9,9 @@ import {
 import * as jwt from 'jsonwebtoken'
 import { getEntityManager } from 'typeorm'
 import * as passport from 'passport'
-import { User } from 'language-exchange-commons/entities'
-import { Login } from 'language-exchange-commons/dto'
+import * as Dto from 'language-exchange-commons/dist/dto'
+import * as Entities from 'language-exchange-commons/dist/entities'
+import * as Models from 'language-exchange-commons/dist/models'
 import { jwtSecret } from '../constants'
 import { dbconfig } from '../dbconfig'
 
@@ -18,9 +19,9 @@ import { dbconfig } from '../dbconfig'
 export class UserController {
 
   @Put('/user')
-  public async createUser(@Body() user: User) {
+  public async createUser(@Body() user: Entities.User) {
     try {
-      const userRepository = getEntityManager().getRepository(User)
+      const userRepository = getEntityManager().getRepository(Entities.User)
       const savedUser = await userRepository.persist(user)
       return 'Hello ' + savedUser.username
     } catch (error) {
@@ -29,13 +30,13 @@ export class UserController {
   }
 
   @Get('/user')
-  public user(@CurrentUser({ required: true }) user: User) {
+  public user( @CurrentUser({ required: true }) user: Models.User) {
     return user
   }
 
   @Post('/login')
-  public async login(@Body() dto: Login) {
-    const userRepository = getEntityManager().getRepository(User)
+  public async login(@Body() dto: Dto.Login) {
+    const userRepository = getEntityManager().getRepository(Entities.User)
     try {
       const user = await userRepository.findOne({ username: dto.username })
       if (user) {

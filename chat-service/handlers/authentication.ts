@@ -1,17 +1,17 @@
 import { ActiveUsers } from '../managers/activeUsers'
 import { HandlerPayload } from './index'
-import { getUserFromToken } from '../api/profile'
-import { User } from 'language-exchange-commons/entities'
+import * as Api from 'language-exchange-commons/dist/api'
+import * as Entities from 'language-exchange-commons/dist/entities'
 
 // TODO: Move to common constants for command names
 const command = 'authenticate'
 
-type CallbackType = (socket: SocketIO.Socket, user: User) => void
+type CallbackType = (socket: SocketIO.Socket, user: Entities.User) => void
 
 const authentication = (authenticated: CallbackType) => (socket: SocketIO.Socket) => {
   socket.on(command, async (token: string) => {
     try {
-      const user = await getUserFromToken(token)
+      const user = await Api.getUserFromToken(token)
       authenticated(socket, user)
     } catch (error) {
       // TODO: unauthorized response

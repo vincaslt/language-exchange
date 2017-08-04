@@ -13,7 +13,7 @@ io.sockets.on('connection', authentication((socket, user) => {
     rooms: [],
     socket
   })
-  socket.emit('handshake', { id: user.id }) // TODO: No need, user should already know his ID
+  socket.emit('handshake')
   console.info('joined: ', user)
 
   createHandlers({ io, socket, sender })
@@ -21,7 +21,6 @@ io.sockets.on('connection', authentication((socket, user) => {
 
 // TODO: disconnect cleanup
 
-// Start listening for connections
 io.listen(process.env.PORT)
 
 console.info(`Listening on port ${process.env.PORT}`)

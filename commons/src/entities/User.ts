@@ -1,7 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import * as Models from '../models'
 
 @Entity()
-export class User {
+export class User implements Models.User {
   
   @PrimaryGeneratedColumn()
   public id: number
@@ -10,6 +11,8 @@ export class User {
   public username: string
 
   constructor(username?: string) {
-    this.username = username
+    if (username) {
+      this.username = username
+    }
   }
 }
