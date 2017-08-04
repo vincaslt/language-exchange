@@ -1,6 +1,7 @@
 import { ActiveUsers } from '../managers/activeUsers'
 import { HandlerPayload } from './index'
-import { Api, Entities } from 'language-exchange-commons'
+import * as Api from 'language-exchange-commons/dist/api'
+import * as Entities from 'language-exchange-commons/dist/entities'
 
 // TODO: Move to common constants for command names
 const command = 'authenticate'

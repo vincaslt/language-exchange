@@ -1,5 +1,5 @@
 import { ConnectionOptions } from 'typeorm'
-import { Entities } from 'language-exchange-commons'
+import * as Entities from 'language-exchange-commons/dist/entities'
 
 export const dbconfig: ConnectionOptions = {
   autoSchemaSync: true,

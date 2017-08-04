@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/vincaslt/language-exchange-api#readme",
   "dependencies": {
-    "@types/axios": "^0.14.0",
     "@types/core-js": "^0.9.42",
     "@types/socket.io": "^1.4.29",
     "@types/uuid": "^3.0.0",

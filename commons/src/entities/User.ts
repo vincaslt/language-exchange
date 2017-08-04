@@ -1,12 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
-
-export interface UserModel {
-  id: number,
-  username: string
-}
+import * as Models from '../models'
 
 @Entity()
-export class User implements UserModel {
+export class User implements Models.User {
   
   @PrimaryGeneratedColumn()
   public id: number

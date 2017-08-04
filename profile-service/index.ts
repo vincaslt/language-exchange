@@ -3,12 +3,15 @@ import 'reflect-metadata'
 import * as express from 'express'
 import { useExpressServer, RoutingControllersOptions } from 'routing-controllers'
 import { createConnection } from 'typeorm'
+import * as cors from 'cors'
 import * as Controllers from './controllers'
 import { dbconfig } from './dbconfig'
 import { initializeAuth } from './authentication'
 
 const app = express()
 const serverOptions: RoutingControllersOptions = {}
+
+app.use(cors())
 
 console.info('Setting up authentication')
 app.use(initializeAuth(serverOptions))

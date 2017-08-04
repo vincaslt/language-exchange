@@ -1,7 +1,7 @@
 import * as passport from 'passport'
 import { ExtractJwt, Strategy as JwtStrategy, StrategyOptions } from 'passport-jwt'
 import { RoutingControllersOptions, Action } from 'routing-controllers'
-import { Entities } from 'language-exchange-commons'
+import * as Entities from 'language-exchange-commons/dist/entities'
 import { getEntityManager } from 'typeorm'
 import { jwtSecret } from './constants'
 

@@ -1,6 +1,6 @@
 import { ActiveUsers } from '../managers/activeUsers'
 import { HandlerPayload } from './index'
-import { Dto } from 'language-exchange-commons'
+import * as Dto from 'language-exchange-commons/dist/dto'
 
 // TODO: Move to common constants for command names
 const command = 'chatMessages'

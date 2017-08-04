@@ -3,7 +3,7 @@ import { createSelector } from 'reselect'
 import { State as ReduxState } from './index'
 import { peerId } from './peerjs'
 import { withPayload } from '../utils/reduxUtils'
-import { Dto } from 'language-exchange-commons'
+import * as Dto from 'language-exchange-commons/dist/dto'
 
 // TODO: status or something, depending on if queued or not
 interface ChatWindow {

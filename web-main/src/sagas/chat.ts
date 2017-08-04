@@ -1,6 +1,6 @@
 import { Action } from 'redux-actions'
 import { types, actions, messageQueue } from '../modules/chat'
-import { Dto } from 'language-exchange-commons'
+import * as Dto from 'language-exchange-commons/dist/dto'
 import { takeLatest, select, put } from 'redux-saga/effects'
 
 function* sendMessagesSaga(action: Action<SocketIOClient.Socket>) {

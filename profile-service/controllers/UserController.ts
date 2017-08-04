@@ -9,7 +9,9 @@ import {
 import * as jwt from 'jsonwebtoken'
 import { getEntityManager } from 'typeorm'
 import * as passport from 'passport'
-import { Dto, Entities } from 'language-exchange-commons'
+import * as Dto from 'language-exchange-commons/dist/dto'
+import * as Entities from 'language-exchange-commons/dist/entities'
+import * as Models from 'language-exchange-commons/dist/models'
 import { jwtSecret } from '../constants'
 import { dbconfig } from '../dbconfig'
 
@@ -28,7 +30,7 @@ export class UserController {
   }
 
   @Get('/user')
-  public user(@CurrentUser({ required: true }) user: Entities.UserModel) {
+  public user( @CurrentUser({ required: true }) user: Models.User) {
     return user
   }
 
