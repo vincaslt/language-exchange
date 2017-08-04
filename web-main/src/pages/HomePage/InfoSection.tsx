@@ -8,10 +8,10 @@ const InfoSection = ({ ...rest }) => (
 )
 
 const StyledInfoSection = styled(InfoSection)`
-  min-height: 150vh
-  padding: 50px
-  display: flex
-  justify-content: center
+  min-height: 150vh;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
 `
 
 export { StyledInfoSection as InfoSection }

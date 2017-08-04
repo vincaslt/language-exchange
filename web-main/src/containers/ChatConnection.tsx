@@ -3,11 +3,13 @@ import * as io from 'socket.io-client'
 import { connect } from 'react-redux'
 import { State as ReduxState } from '../modules'
 import { messageQueue, ChatMessage, actions } from '../modules/chat'
+import { token } from '../modules/token'
 
-const url = 'https://language-exchange-api-pkmvjywloj.now.sh:443'
+const url = 'http://localhost:5000'
 
 type StateProps = {
-  messageQueue: ChatMessage[]
+  messageQueue: ChatMessage[],
+  token: string
 }
 
 type DispatchProps = {
@@ -24,9 +26,12 @@ class ChatConnection extends React.Component<Props> {
 
   componentDidMount() {
     this.socket = io(url)
+    this.socket.on('connect', () => {
+      this.socket.emit('authenticate', this.props.token)
+    })
 
     this.socket.on('chatMessage', this.props.receivedMessage)
-    this.socket.on('handshake', ({ id }: { id: string }) => this.props.connected(id))
+    this.socket.on('handshake', () => this.props.connected())
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -41,7 +46,8 @@ class ChatConnection extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  messageQueue: messageQueue(state)
+  messageQueue: messageQueue(state),
+  token: token(state)
 })
 
 const mapDispatchToProps = {

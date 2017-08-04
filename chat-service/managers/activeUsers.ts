@@ -7,7 +7,7 @@ interface Room {
 
 interface ActiveUser {
   name: string,
-  id: string
+  id: number
   socket: SocketIO.Socket
   rooms: string[]
 }
@@ -31,7 +31,7 @@ class ActiveUserManager {
   }
 
   public enterRoomForTwo(userId: string, recipientId: string) {
-    const activeRoom = this.activeUsers[userId].rooms.find((room) => {
+    const activeRoom = this.activeUsers[userId].rooms.find(room => {
       const roomUsers = this.rooms[room].users || []
       return roomUsers.length === 2
         && roomUsers.includes(userId)
@@ -43,13 +43,14 @@ class ActiveUserManager {
       : this.createRoom([userId, recipientId]).id
   }
 
+  // TODO: Sync created rooms with database
   private createRoom(users: string[]) {
     const roomId = UUID()
     this.rooms[roomId] = {
       id: roomId, users
     }
 
-    users.forEach((userId) => {
+    users.forEach(userId => {
       const user = this.activeUsers[userId]
       user.rooms.push(roomId)
       user.socket.join(roomId)

@@ -13,7 +13,7 @@ const HomePage = ({ ...rest }: Router.RouteComponentProps<{}>) => (
 )
 
 const StyledHomePage = styled(HomePage)`
-  background-color: ${({ theme }) => theme.colors.white}
+  background-color: ${({ theme }) => theme.colors.white};
 `
 
 export { StyledHomePage as HomePage }

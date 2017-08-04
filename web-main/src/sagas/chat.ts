@@ -1,17 +1,17 @@
 import { Action } from 'redux-actions'
 import { types, actions, messageQueue } from '../modules/chat'
-import { Chat } from 'language-exchange-commons'
+import * as Dto from 'language-exchange-commons/dist/dto'
 import { takeLatest, select, put } from 'redux-saga/effects'
 
-function* sendMessages(action: Action<SocketIOClient.Socket>) {
+function* sendMessagesSaga(action: Action<SocketIOClient.Socket>) {
   if (action.payload) {
     const socket = action.payload
-    const queue: Chat.Message = yield select(messageQueue)
+    const queue: Dto.ChatMessage = yield select(messageQueue)
     socket.emit('chatMessages', queue)
     yield put(actions.clearQueue())
   }
 }
 
 export default [
-  takeLatest(types.SEND_MESSAGES, sendMessages)
+  takeLatest(types.SEND_MESSAGES, sendMessagesSaga)
 ]

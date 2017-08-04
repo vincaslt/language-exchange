@@ -1,21 +1,32 @@
-import { combineReducers, Action } from 'redux'
+import { combineReducers } from 'redux'
 import { reducer as peerjs, PeerJsState } from './peerjs'
 import { reducer as chat, ChatState } from './chat'
+import { reducer as token, TokenState } from './token'
+import { reducer as user, UserState } from './user'
 import {
   reducer as notifications,
-  NotificationsReducer
+  NotificationsState
 } from 'react-notification-system-redux'
 
 interface State {
   peerjs: PeerJsState,
-  notifications: NotificationsReducer<Action>,
-  chat: ChatState
+  notifications: NotificationsState,
+  chat: ChatState,
+  token: TokenState,
+  user: UserState
 }
 
 const reducers = combineReducers({
   peerjs,
   notifications,
-  chat
+  chat,
+  token,
+  user
 })
 
-export { State, reducers }
+const persistedState = [
+  'token',
+  'user'
+]
+
+export { State, reducers, persistedState }

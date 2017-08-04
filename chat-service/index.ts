@@ -1,31 +1,26 @@
 import 'core-js'
 import * as Server from 'socket.io'
 import * as UUID from 'uuid/v4'
-import { createHandlers } from './handlers'
+import { createHandlers, authentication } from './handlers'
 import { ActiveUsers } from './managers/activeUsers'
 
 const io = Server()
 
-// Register event handlers
-io.on('connection', (socket) => {
-  function random(max: number) {
-    return Math.random() * (max - 1) + 1
-  }
-  const id = UUID()
+io.sockets.on('connection', authentication((socket, user) => {
   const sender = ActiveUsers.addActiveUser({
-    id,
-    name: 'bob' + random(100),
+    id: user.id,
+    name: user.username,
     rooms: [],
     socket
   })
-  socket.emit('handshake', { id })
-  console.info('joined: ', id)
+  socket.emit('handshake')
+  console.info('joined: ', user)
 
-  // TODO: resolve client id from jwt token
   createHandlers({ io, socket, sender })
-})
+}))
 
-// Start listening for connections
+// TODO: disconnect cleanup
+
 io.listen(process.env.PORT)
 
 console.info(`Listening on port ${process.env.PORT}`)

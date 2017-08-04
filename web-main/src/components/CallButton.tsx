@@ -14,9 +14,9 @@ const CallButton = ({ inCall, ...props }: Props) => (
 )
 
 const StyledCallButton = styled(CallButton)`
-  color: ${({ inCall, theme }) => inCall ? theme.colors.primary : theme.colors.secondary }
-  background: transparent
-  border: transparent
+  color: ${({ inCall, theme }) => inCall ? theme.colors.primary : theme.colors.secondary };
+  background: transparent;
+  border: transparent;
 `
 
 export { StyledCallButton as CallButton }

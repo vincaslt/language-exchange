@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from '../constants/themed-components'
-import { Header, constants as headerConstants} from './Header'
+import { Header, constants as headerConstants } from './Header'
 
 interface Props {
   children?: React.ReactNode,
@@ -9,13 +9,13 @@ interface Props {
 }
 
 const Container = styled.div`
-  height: ${({ fullscreen }: Props) => fullscreen ? '100vh' : 'auto'}
-  width: ${({ fullscreen }: Props) => fullscreen ? '100%' : 'auto'}
+  height: ${({ fullscreen }: Props) => fullscreen ? '100vh' : 'auto'};
+  width: ${({ fullscreen }: Props) => fullscreen ? '100%' : 'auto'};
 `
 
 const Content = styled.div`
-  height: ${({ fullscreen }: Props) => fullscreen ? '100%' : 'auto'}
-  width: ${({ fullscreen }: Props) => fullscreen ? '100%' : 'auto'}
+  height: ${({ fullscreen }: Props) => fullscreen ? '100%' : 'auto'};
+  width: ${({ fullscreen }: Props) => fullscreen ? '100%' : 'auto'};
 `
 
 const HeaderWithContent = ({ children, fullscreen, ...rest }: Props) => (
@@ -28,7 +28,7 @@ const HeaderWithContent = ({ children, fullscreen, ...rest }: Props) => (
 )
 
 const StyledHeaderWithContent = styled(HeaderWithContent)`
-  padding-top: ${({ nopadding }: Props) => !nopadding ? headerConstants.height : 'auto'}
+  padding-top: ${({ nopadding }: Props) => !nopadding ? headerConstants.height : 'auto'};
 `
 
 export { StyledHeaderWithContent as HeaderWithContent}

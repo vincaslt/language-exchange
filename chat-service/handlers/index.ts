@@ -1,5 +1,6 @@
 import { ActiveUser } from '../managers/activeUsers'
 import { createChatMessagesHandler } from './chatMessages'
+import { authentication } from './authentication'
 
 // Register handlers here
 const handlers = [
@@ -13,7 +14,7 @@ export interface HandlerPayload {
 }
 
 const createHandlers = (payload: HandlerPayload) => {
-  handlers.forEach((handler) => handler(payload))
+  handlers.forEach(handler => handler(payload))
 }
 
-export { createHandlers }
+export { createHandlers, authentication }

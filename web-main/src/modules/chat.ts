@@ -3,7 +3,7 @@ import { createSelector } from 'reselect'
 import { State as ReduxState } from './index'
 import { peerId } from './peerjs'
 import { withPayload } from '../utils/reduxUtils'
-import { Chat } from 'language-exchange-commons'
+import * as Dto from 'language-exchange-commons/dist/dto'
 
 // TODO: status or something, depending on if queued or not
 interface ChatWindow {
@@ -16,14 +16,13 @@ export interface ChatWindowMessage {
   content: string
 }
 
-export type ChatMessage = Chat.Message
+export type ChatMessage = Dto.ChatMessage
 
 export interface ChatWindows {
   [key: string]: ChatWindow
 }
 
 export interface ChatState {
-  userId?: string, // TODO: centralize userId and remove race with peerjs
   queue: ChatMessage[]
   windows: ChatWindows
 }
@@ -48,15 +47,14 @@ export const actions = {
   queueMessage: createAction(types.QUEUE_MESSAGE, (message: ChatMessage) => message),
   sendMessages: createAction(types.SEND_MESSAGES, (socket: SocketIOClient.Socket) => socket),
   clearQueue: createAction(types.CLEAR_QUEUE),
-  receivedMessage: createAction(types.RECEIVED_MESSAGE, (message: Chat.ReceivedMessage) => message),
-  connected: createAction(types.CONNECTED, (userId: string) => userId)
+  receivedMessage: createAction(types.RECEIVED_MESSAGE, (message: Dto.ReceivedChatMessage) => message),
+  connected: createAction(types.CONNECTED)
 }
 
-export const reducer = handleActions<ChatState, string|ChatMessage|Chat.ReceivedMessage>({
+export const reducer = handleActions<ChatState, string | ChatMessage | Dto.ReceivedChatMessage>({
   [types.CONNECTED]: (state: ChatState, action: Action<string>): ChatState => (
     withPayload(action, (payload) => ({
-      ...state,
-      userId: payload
+      ...state
     }), state)
   ),
   [types.TOGGLE_WINDOW]: (state: ChatState, action: Action<string>): ChatState => {
@@ -99,8 +97,8 @@ export const reducer = handleActions<ChatState, string|ChatMessage|Chat.Received
       return state
     }, {...state})
   },
-  // TODO: have aunique ID for all rooms, not based on senderId
-  [types.RECEIVED_MESSAGE]: (state: ChatState, action: Action<Chat.ReceivedMessage>): ChatState => (
+  // TODO: have a unique ID for all rooms, not based on senderId
+  [types.RECEIVED_MESSAGE]: (state: ChatState, action: Action<Dto.ReceivedChatMessage>): ChatState => (
     withPayload(action, (payload) => {
       const id = payload.sender.id
       const window = state.windows[id] || {}
@@ -150,4 +148,3 @@ export const isChatWindowVisible = (id: string) => createSelector(
 )
 
 export const messageQueue = (state: ReduxState) => state.chat.queue
-export const userId = (state: ReduxState) => state.chat.userId
