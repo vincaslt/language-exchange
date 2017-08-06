@@ -2,7 +2,6 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import * as Router from 'react-router'
 import * as Notifications from 'react-notification-system-redux'
-import * as CopyToClipboard from 'react-copy-to-clipboard'
 import { actions, peerId, isCallAnswered, isCalling, isReady } from '../../modules/peerjs'
 import { State as ReduxState } from '../../modules'
 import styled from '../../constants/themed-components'
@@ -11,9 +10,9 @@ import { PeerConnection } from '../../containers/PeerConnection'
 import { FullscreenVideo } from './FullscreenVideo'
 import { PopupVideo } from './PopupVideo'
 import { Sidebar } from './Sidebar'
-import { Button } from '../../ui/Button'
 import { push } from 'connected-react-router'
 import { routeNames } from '../../constants/routeNames'
+import { createCallLinkNotification, CallLinkNotification } from './CallLinkNotification'
 
 const ContentContainer = styled.div`
   display: flex;
@@ -22,13 +21,6 @@ const ContentContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.black};
   height: 100%;
   width: 100%;
-`
-
-const NotificationActions = styled.div`
-  margin-top: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
 `
 
 type OwnProps = Router.RouteComponentProps<{
@@ -45,6 +37,7 @@ type StateProps = {
 type DispatchProps = {
   startCall: typeof actions.startCall
   showInfoNotification: typeof Notifications.info
+  discardAllNotifications: typeof Notifications.removeAll
   push: typeof push
 }
 
@@ -81,21 +74,15 @@ class VideoCallPage extends React.Component<Props, State> {
   componentWillReceiveProps(nextProps: Props) {
     if (!this.props.peerId && nextProps.peerId) {
       const callURL = `${window.location.origin}${nextProps.match.url}/${nextProps.peerId}`
-      nextProps.showInfoNotification({
-        title: 'Your id:',
-        message: nextProps.peerId,
-        position: 'tr',
-        autoDismiss: 0,
-        dismissible: false,
-        children: (
-          <NotificationActions>
-            <CopyToClipboard text={callURL}>
-              <Button color="secondary">Copy Link</Button>
-            </CopyToClipboard>
-          </NotificationActions>
-        )
-      })
+      nextProps.showInfoNotification(createCallLinkNotification(
+        nextProps.peerId.toString(),
+        <CallLinkNotification callURL={callURL} />
+      ))
     }
+  }
+
+  componentWillUnmount() {
+    this.props.discardAllNotifications()
   }
 
   loadCamera = () => {
@@ -155,6 +142,7 @@ const mapStateToProps = (state: ReduxState) => ({
 const mapDispatchToProps = {
   startCall: actions.startCall,
   showInfoNotification: Notifications.info,
+  discardAllNotifications: Notifications.removeAll,
   push: push
 }
 
