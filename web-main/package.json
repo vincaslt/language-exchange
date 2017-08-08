@@ -10,6 +10,7 @@
     "@types/react-dom": "^15.5.1",
     "@types/react-fontawesome": "1.6.0",
     "@types/react-notification-system": "^0.2.35",
+    "@types/react-notification-system-redux": "^1.1.0",
     "@types/react-redux": "^4.4.45",
     "@types/react-router-dom": "^4.0.5",
     "@types/redux-actions": "1.2.4",
