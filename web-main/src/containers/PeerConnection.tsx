@@ -53,7 +53,7 @@ const port = 443
 
 class PeerConnection extends React.Component<Props, {}> {
   peer: Peer
-  incomingCall: Peer.MediaConnection
+  call: Peer.MediaConnection
   props: Props
 
   componentDidMount() {
@@ -61,19 +61,15 @@ class PeerConnection extends React.Component<Props, {}> {
   }
 
   componentWillReceiveProps(nextProps: Props) {
-    if (!this.props.userId && nextProps.userId) {
-      this.initialize(nextProps.userId)
-    }
-
     if (!this.props.isCallAnswered && nextProps.isCallAnswered &&
         this.props.isCallIncoming && !nextProps.isCallIncoming) {
-      this.incomingCall.answer(nextProps.localStream)
-      this.handleCall(nextProps, this.incomingCall)
+      this.call.answer(nextProps.localStream)
+      this.handleCall(nextProps, this.call)
     }
 
     if (!this.props.isCalling && nextProps.isCalling && nextProps.recipientId) {
-      const call = this.peer.call(nextProps.recipientId, nextProps.localStream)
-      this.handleCall(nextProps, call)
+      this.call = this.peer.call(nextProps.recipientId, nextProps.localStream)
+      this.handleCall(nextProps, this.call)
     }
 
     if (this.props.isCallAnswered && !nextProps.isCallAnswered) {
@@ -82,8 +78,8 @@ class PeerConnection extends React.Component<Props, {}> {
   }
 
   initialize(userId: number) {
-    // TODO: Peer server should get id from token
-    this.peer = new Peer(userId.toString(), { secure: true, host, port })
+    // TODO: Peer server itself should get id from token
+    this.peer = new Peer(userId.toString(), { host, port })
     this.peer.on('open', (peerId) => {
       this.props.initializePeerJs(peerId)
     })
@@ -96,21 +92,24 @@ class PeerConnection extends React.Component<Props, {}> {
   }
 
   cleanupConnection = () => {
-    delete this.incomingCall
+    if (this.call) {
+      this.call.close()
+      delete this.call
+    }
     if (this.peer && !this.peer.destroyed) {
       this.peer.destroy()
     }
   }
 
   handleIncomingCall = (call: Peer.MediaConnection) => {
-    this.incomingCall = call
+    this.call = call
     this.props.receiveCall(call.peer)
   }
 
   handleCall = (props: Props, call: Peer.MediaConnection) => {
     call.on('stream', (remoteStream: MediaStream) => {
       if (props.isHost) {
-        this.props.callAccepted()
+        props.callAccepted()
       }
 
       if (props.onStream) {

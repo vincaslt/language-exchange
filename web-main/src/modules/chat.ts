@@ -1,7 +1,7 @@
 import { createAction, handleActions, Action } from 'redux-actions'
 import { createSelector } from 'reselect'
 import { State as ReduxState } from './index'
-import { peerId } from './peerjs'
+import { recipientId } from './peerjs'
 import { withPayload } from '../utils/reduxUtils'
 import * as Dto from 'language-exchange-commons/dist/dto'
 
@@ -138,13 +138,13 @@ export const visibleChatWindows = createSelector(
 
 export const isActiveChatVisible = createSelector(
   visibleChatWindows,
-  peerId,
-  (visibleWindows, peerId) => peerId ? visibleWindows[peerId] : false
+  recipientId,
+  (visibleWindows, recipientId) => !!(recipientId && visibleWindows[recipientId])
 )
 
 export const isChatWindowVisible = (id: string) => createSelector(
   visibleChatWindows,
-  (windows) => !!windows[id].visible
+  (visibleWindows) => !!visibleWindows[id]
 )
 
 export const messageQueue = (state: ReduxState) => state.chat.queue

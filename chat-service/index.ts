@@ -1,10 +1,23 @@
 import 'core-js'
+
+import * as fs from 'fs'
+import * as https from 'https'
+import * as express from 'express'
 import * as Server from 'socket.io'
 import * as UUID from 'uuid/v4'
 import { createHandlers, authentication } from './handlers'
 import { ActiveUsers } from './managers/activeUsers'
 
-const io = Server()
+const app = express()
+
+app.get('/status', (req, res) => res.send('ok'))
+
+const server = https.createServer({
+  key: fs.readFileSync('./ssl/key.pem'),
+  cert: fs.readFileSync('./ssl/cert.pem')
+}, app)
+
+const io = Server(server)
 
 io.sockets.on('connection', authentication((socket, user) => {
   const sender = ActiveUsers.addActiveUser({
@@ -20,7 +33,6 @@ io.sockets.on('connection', authentication((socket, user) => {
 }))
 
 // TODO: disconnect cleanup
-
-io.listen(process.env.PORT)
+server.listen(process.env.PORT)
 
 console.info(`Listening on port ${process.env.PORT}`)

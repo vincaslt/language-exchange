@@ -51,6 +51,7 @@
   },
   "scripts": {
     "start": "react-scripts-ts start",
+    "serve": "npm run build && cd ./build && now --public",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"

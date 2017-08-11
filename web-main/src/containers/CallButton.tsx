@@ -4,8 +4,6 @@ import { CallButton as CallButtonComponent } from '../components/CallButton'
 import { State as ReduxState } from '../modules'
 import { actions, isCallAnswered, isCalling } from '../modules/peerjs'
 
-// TODO: add call state
-
 type StateProps = {
   isCallAnswered: boolean
   isCalling: boolean

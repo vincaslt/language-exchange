@@ -5,7 +5,7 @@ import { State as ReduxState } from '../modules'
 import { messageQueue, ChatMessage, actions } from '../modules/chat'
 import { token } from '../modules/token'
 
-const url = 'http://localhost:5000'
+const url = 'https://192.168.0.111:5000'
 
 type StateProps = {
   messageQueue: ChatMessage[],

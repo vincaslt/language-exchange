@@ -2,6 +2,10 @@
   "name": "language-exchange-commons",
   "version": "1.0.0",
   "description": "",
+  "lib": [
+    "es2017",
+    "dom"
+  ],
   "types": "./dist/index.d.ts",
   "main": "dist",
   "scripts": {

@@ -1,4 +1,5 @@
 import { ActiveUsers } from '../managers/activeUsers'
+import { AxiosError } from 'axios'
 import { HandlerPayload } from './index'
 import * as Api from 'language-exchange-commons/dist/api'
 import * as Entities from 'language-exchange-commons/dist/entities'
@@ -14,6 +15,7 @@ const authentication = (authenticated: CallbackType) => (socket: SocketIO.Socket
       const user = await Api.getUserFromToken(token)
       authenticated(socket, user)
     } catch (error) {
+      console.error(error.stack)
       // TODO: unauthorized response
     }
   })

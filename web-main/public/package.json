@@ -1,0 +1,14 @@
+{
+  "name": "language-exchange",
+  "version": "1.0.0",
+  "description": "",
+  "main": "service-worker.js",
+  "scripts": {
+    "start": "serve --single"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serve": "^6.0.6"
+  }
+}

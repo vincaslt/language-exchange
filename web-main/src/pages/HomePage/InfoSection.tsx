@@ -1,9 +1,10 @@
 import * as React from 'react'
 import styled from '../../constants/themed-components'
+import { Login } from '../../containers/Login'
 
 const InfoSection = ({ ...rest }) => (
   <div {...rest}>
-    Nothing here yet
+    <Login />
   </div>
 )
 
