@@ -1,5 +1,4 @@
 import { ActiveUsers } from '../managers/activeUsers'
-import { AxiosError } from 'axios'
 import { HandlerPayload } from './index'
 import * as Api from 'language-exchange-commons/dist/api'
 import * as Entities from 'language-exchange-commons/dist/entities'

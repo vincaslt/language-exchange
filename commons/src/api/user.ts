@@ -8,11 +8,11 @@ const PROFILE_SERVICE_URL = 'https://192.168.0.111:3030'
 // TODO: Pass config, rather than trying to figgure out environment
 
 const axiosConfig: AxiosRequestConfig = {
-  baseURL: PROFILE_SERVICE_URL,
+  baseURL: PROFILE_SERVICE_URL
 }
 
 if (typeof window === 'undefined') {
-  const https = require('https')
+  const https = require('https') // tslint:disable-line:no-var-requires
   axiosConfig.httpsAgent = new https.Agent({
     rejectUnauthorized: false
   })
