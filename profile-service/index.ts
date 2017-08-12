@@ -5,6 +5,7 @@ import * as https from 'https'
 import * as express from 'express'
 import { useExpressServer, RoutingControllersOptions } from 'routing-controllers'
 import { createConnection } from 'typeorm'
+import { json } from 'body-parser'
 import * as cors from 'cors'
 import * as Controllers from './controllers'
 import { dbconfig } from './dbconfig'
@@ -13,6 +14,7 @@ import { initializeAuth } from './authentication'
 const serverOptions: RoutingControllersOptions = {}
 const app = express()
 
+app.use(json())
 app.use(cors())
 
 console.info('Setting up authentication')

@@ -27,6 +27,7 @@ export const initializeAuth = (serverOptions: RoutingControllersOptions) => {
   }))
 
   serverOptions.currentUserChecker = async (action: Action) => {
+    // TODO: error handling if needed
     await new Promise(resolve => {
       passport.authenticate('jwt', { session: false })(
         action.request,

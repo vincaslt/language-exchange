@@ -41,6 +41,7 @@
     "mysql": "^2.14.0",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
+    "passport-json": "^1.2.0",
     "passport-jwt": "^2.2.1",
     "reflect-metadata": "^0.1.10",
     "routing-controllers": "^0.7.1",

@@ -2,7 +2,6 @@ import {
   InternalServerError,
   BadRequestError,
   JsonController,
-  UseBefore,
   CurrentUser,
   Get, Post, Body, Put
 } from 'routing-controllers'
@@ -19,33 +18,33 @@ import { dbconfig } from '../dbconfig'
 export class UserController {
 
   @Put('/user')
-  public async createUser(@Body() user: Entities.User) {
+  public async createUser(@Body() user: Dto.Registration) {
     try {
       const userRepository = getEntityManager().getRepository(Entities.User)
-      const savedUser = await userRepository.persist(user)
-      return 'Hello ' + savedUser.username
+      const newUser = new Entities.User()
+      newUser.username = user.username
+      newUser.password = user.password
+      const savedUser = await userRepository.persist(newUser)
+      return true
     } catch (error) {
-      console.error(error)
+      throw new BadRequestError('User could not be created')
     }
   }
 
   @Get('/user')
-  public user( @CurrentUser({ required: true }) user: Models.User) {
+  public user(@CurrentUser({ required: true }) user: Models.User) {
     return user
   }
 
   @Post('/login')
-  public async login(@Body() dto: Dto.Login) {
+  public async login(@Body() { username, password }: Dto.Login) {
     const userRepository = getEntityManager().getRepository(Entities.User)
-    try {
-      const user = await userRepository.findOne({ username: dto.username })
-      if (user) {
-        const token = jwt.sign({ id: user.id }, jwtSecret)
-        return { token }
-      }
-      return new BadRequestError('invalid credentials')
-    } catch (error) {
-      return new InternalServerError(error)
+    const user = await userRepository.findOne({ username })
+    if ((!!user && user.verifyPassword(password))) {
+      const token = jwt.sign({ id: user.id }, jwtSecret)
+      return { token }
+    } else {
+      throw new BadRequestError('Invalid credentials')
     }
   }
 }
