@@ -15,8 +15,10 @@
   "author": "Vincas Stonys",
   "license": "ISC",
   "dependencies": {
+    "@types/bcrypt": "^1.0.0",
     "@types/node": "^8.0.19",
     "axios": "^0.16.2",
+    "bcrypt": "^1.0.2",
     "mysql": "^2.14.1",
     "reflect-metadata": "^0.1.10",
     "typeorm": "0.1.0-alpha.33",

@@ -11,7 +11,7 @@ interface State {
   password: string
 }
 
-class Login extends React.Component<Props, State> {
+class Registration extends React.Component<Props, State> {
   props: Props
   state: State = { username: '', password: '' }
 
@@ -32,11 +32,11 @@ class Login extends React.Component<Props, State> {
           disabled={!this.state.username || !this.state.password}
           onClick={() => { this.props.onSubmit(this.state.username, this.state.password) }}
         >
-          Login
+          Sign up
         </Button>
       </div>
     )
   }
 }
 
-export { Login }
+export { Registration }

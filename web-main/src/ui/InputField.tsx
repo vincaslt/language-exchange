@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from '../constants/themed-components'
 
 const InputField = ({ ...rest }) => (
-  <input {...rest} type="text" />
+  <input type="text" {...rest} />
 )
 
 const StyledInputField = styled(InputField)`

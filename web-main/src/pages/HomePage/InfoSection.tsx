@@ -1,9 +1,11 @@
 import * as React from 'react'
 import styled from '../../constants/themed-components'
 import { Login } from '../../containers/Login'
+import { Registration } from '../../containers/Registration'
 
 const InfoSection = ({ ...rest }) => (
   <div {...rest}>
+    <Registration />
     <Login />
   </div>
 )

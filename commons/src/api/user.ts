@@ -1,7 +1,11 @@
-import { AxiosRequestConfig, default as axiosCreator } from 'axios'
+import { AxiosRequestConfig, default as axiosCreator, AxiosPromise } from 'axios'
 
 import { User as UserModel } from '../models'
-import { Login as LoginDto, Token as TokenDto } from '../dto'
+import {
+  Login as LoginDto,
+  Token as TokenDto,
+  Registration as RegistrationDto
+} from '../dto'
 
 const PROFILE_SERVICE_URL = 'https://192.168.0.111:3030'
 
@@ -29,4 +33,8 @@ export const getUserFromToken = (token: string): Promise<UserModel> => {
 export const login = (loginData: LoginDto): Promise<TokenDto> => {
   return axios.post('/login', loginData)
     .then(({ data }) => data)
+}
+
+export const createUser = (userData: RegistrationDto): AxiosPromise => {
+  return axios.put('/user', userData)
 }

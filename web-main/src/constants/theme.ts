@@ -6,7 +6,9 @@ const colors = {
   dark: '#55293B',
   light: '#EFDFCF',
   white: '#FFFBFF',
-  black: '#000000'
+  black: '#000000',
+  grayText: '#CECECE',
+  gray: '#DFDFDF'
 }
 
 export { colors }

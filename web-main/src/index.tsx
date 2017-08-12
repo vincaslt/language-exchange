@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom'
 import { ThemeProvider } from 'styled-components'
 import { ConnectedRouter } from 'connected-react-router'
 import { Provider } from 'react-redux'
+import { injectGlobal } from 'styled-components'
 import { store, browserHistory } from './store'
 import * as Theme from './constants/theme'
 import { Application } from './containers/Application'
@@ -10,7 +11,13 @@ import 'core-js/es7'
 
 import 'font-awesome/css/font-awesome.css'
 import 'normalize.css'
-import './style.css'
+
+// tslint:disable-next-line:no-unused-expression
+injectGlobal`
+  * {
+    box-sizing: border-box
+  }
+`
 
 ReactDOM.render(
   <Provider store={store} >
