@@ -81,10 +81,6 @@ class VideoCallPage extends React.Component<Props, State> {
     }
   }
 
-  componentWillUnmount() {
-    this.props.discardAllNotifications()
-  }
-
   loadCamera = () => {
     navigator.mediaDevices.getUserMedia({ audio: true, video: true })
       .then((stream) => this.setState({ ...this.state, localStream: stream }))
@@ -142,7 +138,6 @@ const mapStateToProps = (state: ReduxState) => ({
 const mapDispatchToProps = {
   startCall: actions.startCall,
   showInfoNotification: Notifications.info,
-  discardAllNotifications: Notifications.removeAll,
   push: push
 }
 

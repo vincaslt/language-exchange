@@ -39,7 +39,7 @@ export const actions = {
 export const reducer = handleActions<PeerJsState, string>({
   [types.INITIALIZE]: (state: PeerJsState, action: Action<string>): PeerJsState => {
     return withPayload(action, (payload) => ({
-      peerId: action.payload,
+      peerId: payload,
       isCallIncoming: false,
       isCalling: false,
       isCallAnswered: false,
