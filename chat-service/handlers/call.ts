@@ -13,6 +13,7 @@ const callHandler = ({ socket, io, sender }: HandlerPayload) => {
     console.info(`${sender.id} is calling ${callData.recipient}`)
     console.info('---')
     const payload: Dto.RoomData = { room }
+    // TODO: call to specific socket rather than room
     socket.to(room).broadcast.emit('call', payload)
   })
 }

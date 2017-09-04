@@ -6,7 +6,7 @@ import * as Dto from 'language-exchange-commons/dist/dto'
 const command = 'chatMessages'
 
 // TODO: Make user id a string ?
-const createChatMessagesHandler = ({ socket, io, sender }: HandlerPayload) => {
+const chatMessagesHandler = ({ socket, io, sender }: HandlerPayload) => {
   socket.on(command, ([...messages]: Dto.ChatMessage[]) => {
     messages.forEach(message => {
       const room = ActiveUsers.enterRoomForTwo(sender.id.toString(), message.recipient)
@@ -27,4 +27,4 @@ const createChatMessagesHandler = ({ socket, io, sender }: HandlerPayload) => {
   })
 }
 
-export { createChatMessagesHandler }
+export { chatMessagesHandler }

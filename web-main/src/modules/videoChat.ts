@@ -1,14 +1,20 @@
 import { createAction, handleActions, Action } from 'redux-actions'
+import { State as ReduxState } from './index'
 import { withPayload } from '../utils/reduxUtils'
+import * as Dto from 'language-exchange-commons/dist/dto'
 
-type VideoChatState = {
-  incomingCall?: {
-    // TODO: some room info (caller etc.)
-    roomId: string
-  },
-  outgoingCall?: {
-    recipientId: string
-  }
+export interface OutgoingCall {
+  recipientId: string
+}
+
+export interface IncomingCall {
+  // TODO: some room info (caller etc.)
+  roomId: string
+}
+
+export type VideoChatState = {
+  incomingCall?: IncomingCall,
+  outgoingCall?: OutgoingCall
   activeCall?: {
     roomId: string
     // TODO: some room info (caller etc.)
@@ -25,26 +31,26 @@ export const types = {
 }
 
 export const actions = {
-  startCall: createAction(types.START_CALL, (recipientId: string) => recipientId),
-  callIncoming: createAction(types.CALL_INCOMING, (roomId: string) => roomId), // TODO: make DTO for call info
+  startCall: createAction(types.START_CALL, (callData: Dto.CallData) => callData),
+  callIncoming: createAction(types.CALL_INCOMING, (roomData: Dto.RoomData) => roomData),
   answerCall: createAction(types.ANSWER_CALL),
   rejectCall: createAction(types.REJECT_CALL)
 }
 
-export const reducer = handleActions<VideoChatState, string>({
-  [types.START_CALL]: (state: VideoChatState, action: Action<string>) => (
+export const reducer = handleActions<VideoChatState, Dto.CallData|Dto.RoomData>({
+  [types.START_CALL]: (state: VideoChatState, action: Action<Dto.CallData>) => (
     withPayload(action, payload => ({
       ...state,
       outgoingCall: {
-        recipientId: payload
+        recipientId: payload.recipient
       }
     }), state)
   ),
-  [types.CALL_INCOMING]: (state: VideoChatState, action: Action<string>) => (
+  [types.CALL_INCOMING]: (state: VideoChatState, action: Action<Dto.RoomData>) => (
     withPayload(action, payload => ({
       ...state,
       incomingCall: {
-        roomId: payload
+        roomId: payload.room
       }
     }), state)
   ),
@@ -57,3 +63,6 @@ export const reducer = handleActions<VideoChatState, string>({
     incomingCall: undefined
   })
 }, initialState)
+
+export const outgoingCall = (state: ReduxState) => state.videoChat.outgoingCall
+export const incomingCall = (state: ReduxState) => state.videoChat.incomingCall

@@ -3,6 +3,7 @@ import { reducer as peerjs, PeerJsState } from './peerjs'
 import { reducer as chat, ChatState } from './chat'
 import { reducer as token, TokenState } from './token'
 import { reducer as user, UserState } from './user'
+import { reducer as videoChat, VideoChatState } from './videoChat'
 import {
   reducer as notifications,
   NotificationsState
@@ -13,7 +14,8 @@ interface State {
   notifications: NotificationsState,
   chat: ChatState,
   token: TokenState,
-  user: UserState
+  user: UserState,
+  videoChat: VideoChatState
 }
 
 const reducers = combineReducers({
@@ -21,7 +23,8 @@ const reducers = combineReducers({
   notifications,
   chat,
   token,
-  user
+  user,
+  videoChat
 })
 
 const persistedState = [
