@@ -61,7 +61,7 @@ class ChatConnection extends React.Component<Props> {
 
   render() {
     return this.props.incomingCall ? (
-      <PopUp>
+      <PopUp isOpen>
         <IncomingCall
           onAnswer={() => { console.log('answer') }}
           onHangUp={() => { console.log('hang') }}
