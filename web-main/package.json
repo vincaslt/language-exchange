@@ -22,7 +22,6 @@
     "font-awesome": "^4.7.0",
     "language-exchange-commons": "file:..\\commons",
     "normalize.css": "5.0.0",
-    "peerjs": "git+ssh://git@github.com:Enet4/peerjs.git#typescript-types",
     "prop-types": "^15.5.8",
     "react": "^15.6.1",
     "react-copy-to-clipboard": "^5.0.0",
