@@ -28,7 +28,7 @@ const Application = ({ chatWindows }: Props) => {
       <ChatConnection />
       <Notifications />
       <Route exact path={routeNames.home} component={HomePage} />
-      <Route path={`${routeNames.call}/:recipientId?`} component={VideoCallPage} />
+      <Route path={`${routeNames.call}/:roomId?`} component={VideoCallPage} />
       {windows}
     </div>
   )

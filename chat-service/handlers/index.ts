@@ -1,10 +1,14 @@
 import { ActiveUser } from '../managers/activeUsers'
-import { createChatMessagesHandler } from './chatMessages'
+import { chatMessagesHandler } from './chatMessages'
+import { callHandler } from './call'
 import { authentication } from './authentication'
+import { answerCallHandler } from './answerCall'
 
 // Register handlers here
 const handlers = [
-  createChatMessagesHandler
+  chatMessagesHandler,
+  callHandler,
+  answerCallHandler
 ]
 
 export interface HandlerPayload {

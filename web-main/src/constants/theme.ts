@@ -8,7 +8,8 @@ const colors = {
   white: '#FFFBFF',
   black: '#000000',
   grayText: '#CECECE',
-  gray: '#DFDFDF'
+  gray: '#DFDFDF',
+  transparentGray: 'rgba(0, 0, 0, 0.7)'
 }
 
 export { colors }

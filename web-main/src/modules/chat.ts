@@ -1,7 +1,7 @@
 import { createAction, handleActions, Action } from 'redux-actions'
 import { createSelector } from 'reselect'
 import { State as ReduxState } from './index'
-import { recipientId } from './peerjs'
+import { activeRoomId } from './videoChat'
 import { withPayload } from '../utils/reduxUtils'
 import * as Dto from 'language-exchange-commons/dist/dto'
 
@@ -100,7 +100,7 @@ export const reducer = handleActions<ChatState, string | ChatMessage | Dto.Recei
   // TODO: have a unique ID for all rooms, not based on senderId
   [types.RECEIVED_MESSAGE]: (state: ChatState, action: Action<Dto.ReceivedChatMessage>): ChatState => (
     withPayload(action, (payload) => {
-      const id = payload.sender.id
+      const id = payload.chatId
       const window = state.windows[id] || {}
       const messages = window.messages || []
       return ({
@@ -138,8 +138,8 @@ export const visibleChatWindows = createSelector(
 
 export const isActiveChatVisible = createSelector(
   visibleChatWindows,
-  recipientId,
-  (visibleWindows, recipientId) => !!(recipientId && visibleWindows[recipientId])
+  activeRoomId,
+  (visibleWindows, roomId) => !!(roomId && visibleWindows[roomId])
 )
 
 export const isChatWindowVisible = (id: string) => createSelector(

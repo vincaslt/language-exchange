@@ -20,7 +20,7 @@ export const actions = {
   requestCreateUser: createAction(types.REQUEST_CREATE_USER, (user: Dto.Registration) => user)
 }
 
-export const reducer = handleActions<UserState, string>({
+export const reducer = handleActions<UserState, Models.User>({
   [types.RECEIVE_USER_INFO]: (state: UserState, action: Action<Models.User>): UserState => (
     withPayload(action, (payload) => (payload), state)
   )

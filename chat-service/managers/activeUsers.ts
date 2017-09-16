@@ -30,17 +30,24 @@ class ActiveUserManager {
     return this.activeUsers[user.id]
   }
 
-  public enterRoomForTwo(userId: string, recipientId: string) {
+  public getActiveRoom(userId: string) {
     const activeRoom = this.activeUsers[userId].rooms.find(room => {
       const roomUsers = this.rooms[room].users || []
-      return roomUsers.length === 2
-        && roomUsers.includes(userId)
-        && roomUsers.includes(recipientId)
+      return roomUsers.includes(userId)
     })
+    return activeRoom ? this.rooms[activeRoom] : undefined
+  }
 
-    return activeRoom
-      ? activeRoom
-      : this.createRoom([userId, recipientId]).id
+  public enterRoomForTwo(userId: string, recipientId: string) {
+    const activeRoom = this.getActiveRoom(userId)
+    if (activeRoom) {
+      const activeRoomUsers = activeRoom.users || []
+      if (activeRoomUsers.length === 2 && activeRoomUsers.includes(recipientId)) {
+        return activeRoom
+      }
+    }
+    
+    return this.createRoom([userId, recipientId])
   }
 
   // TODO: Sync created rooms with database
@@ -49,7 +56,7 @@ class ActiveUserManager {
     this.rooms[roomId] = {
       id: roomId, users
     }
-
+    // TODO: handle exception when no active user
     users.forEach(userId => {
       const user = this.activeUsers[userId]
       user.rooms.push(roomId)
