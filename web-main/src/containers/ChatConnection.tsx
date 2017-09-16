@@ -5,8 +5,8 @@ import { State as ReduxState } from '../modules'
 import { messageQueue, ChatMessage, actions as chatActions } from '../modules/chat'
 import {
   outgoingCall,
-  OutgoingCall,
   incomingCall,
+  OutgoingCall,
   IncomingCall as IncomingCallState,
   actions as videoActions
 } from '../modules/videoChat'
@@ -19,15 +19,18 @@ const url = 'https://192.168.0.111:5000'
 type StateProps = {
   messageQueue: ChatMessage[],
   token: string,
-  outgoingCall: OutgoingCall | undefined,
-  incomingCall: IncomingCallState | undefined
+  outgoingCall: OutgoingCall|undefined,
+  incomingCall: IncomingCallState|undefined
 }
 
 type DispatchProps = {
   connected: typeof chatActions.connected
   sendMessages: typeof chatActions.sendMessages
   receivedMessage: typeof chatActions.receivedMessage
-  callIncoming: typeof videoActions.callIncoming
+  callIncoming: typeof videoActions.callIncoming,
+  answerCall: typeof videoActions.answerCall,
+  rejectCall: typeof videoActions.rejectCall,
+  callAnswered: typeof videoActions.callAnswered
 }
 
 type Props = StateProps & DispatchProps
@@ -45,6 +48,7 @@ class ChatConnection extends React.Component<Props> {
     this.socket.on('chatMessage', this.props.receivedMessage)
     this.socket.on('handshake', this.props.connected)
     this.socket.on('call', this.props.callIncoming)
+    this.socket.on('callAnswered', this.props.callAnswered)
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -60,14 +64,14 @@ class ChatConnection extends React.Component<Props> {
   }
 
   render() {
-    return this.props.incomingCall ? (
-      <PopUp isOpen>
+    return (
+      <PopUp isOpen={!!this.props.incomingCall}>
         <IncomingCall
-          onAnswer={() => { console.log('answer') }}
-          onHangUp={() => { console.log('hang') }}
+          onAnswer={() => this.props.answerCall(this.socket, this.props.incomingCall)}
+          onHangUp={() => this.props.rejectCall(this.socket)}
         />
       </PopUp>
-    ) : null
+    )
   }
 }
 
@@ -82,7 +86,10 @@ const mapDispatchToProps = {
   connected: chatActions.connected,
   sendMessages: chatActions.sendMessages,
   receivedMessage: chatActions.receivedMessage,
-  callIncoming: videoActions.callIncoming
+  callIncoming: videoActions.callIncoming,
+  answerCall: videoActions.answerCall,
+  rejectCall: videoActions.rejectCall,
+  callAnswered: videoActions.callAnswered
 }
 
 const ConnectedChatConnection = connect(

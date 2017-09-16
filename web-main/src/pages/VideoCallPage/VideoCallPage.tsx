@@ -1,18 +1,12 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
 import * as Router from 'react-router'
-import * as Notifications from 'react-notification-system-redux'
-import { actions, peerId, isCallAnswered, isCalling, isReady } from '../../modules/peerjs'
-import { State as ReduxState } from '../../modules'
 import styled from '../../constants/themed-components'
 import { HeaderWithContent } from '../../components/HeaderWithContent'
-import { PeerConnection } from '../../containers/PeerConnection'
+import { VideoCall } from '../../containers/VideoCall'
 import { FullscreenVideo } from './FullscreenVideo'
 import { PopupVideo } from './PopupVideo'
 import { Sidebar } from './Sidebar'
-import { push } from 'connected-react-router'
-import { routeNames } from '../../constants/routeNames'
-import { createCallLinkNotification, CallLinkNotification } from './CallLinkNotification'
+// import { routeNames } from '../../constants/routeNames'
 
 const ContentContainer = styled.div`
   display: flex;
@@ -24,24 +18,10 @@ const ContentContainer = styled.div`
 `
 
 type OwnProps = Router.RouteComponentProps<{
-  recipientId?: string
+  roomId: string
 }>
 
-type StateProps = {
-  peerId?: string,
-  isCallAnswered: boolean,
-  isCalling: boolean,
-  isReady: boolean
-}
-
-type DispatchProps = {
-  startCall: typeof actions.startCall
-  showInfoNotification: typeof Notifications.info
-  discardAllNotifications: typeof Notifications.removeAll
-  push: typeof push
-}
-
-type Props = StateProps & OwnProps & DispatchProps
+type Props = OwnProps
 type State = {
   localStream?: MediaStream
   remoteStream?: MediaStream
@@ -53,67 +33,32 @@ class VideoCallPage extends React.Component<Props, State> {
     remoteStream: undefined
   }
 
-  componentDidMount() {
-    this.loadCamera()
+  handleRemoteStream = (remoteStream: MediaStream) => {
+    this.setState({ remoteStream })
   }
 
-  componentDidUpdate() {
-    const recipientId = this.props.match.params.recipientId
-    const readyToMakeACall = this.props.isReady
-      && !this.props.isCallAnswered
-      && !this.props.isCalling
-      && this.state.localStream
-
-    if (!this.state.localStream) {
-      this.loadCamera()
-    } else if (recipientId && readyToMakeACall) {
-      this.props.startCall(recipientId)
-    }
+  handleLocalStream = (localStream: MediaStream) => {
+    this.setState({ localStream })
   }
 
-  componentWillReceiveProps(nextProps: Props) {
-    if (!this.props.peerId && nextProps.peerId) {
-      const callURL = `${window.location.origin}${nextProps.match.url}/${nextProps.peerId}`
-      nextProps.showInfoNotification(createCallLinkNotification(
-        nextProps.peerId.toString(),
-        <CallLinkNotification callURL={callURL} />
-      ))
-    }
-  }
-
-  loadCamera = () => {
-    navigator.mediaDevices.getUserMedia({ audio: true, video: true })
-      .then((stream) => this.setState({ ...this.state, localStream: stream }))
-  }
-
-  handleStream = (remoteStream?: MediaStream) => {
-    if (remoteStream) {
-      this.setState({ ...this.state, remoteStream })
-    }
-  }
-
-  handleCloseCall = () => {
-    this.setState({ ...this.state, localStream: undefined, remoteStream: undefined })
-    this.props.push(routeNames.call)
-  }
+  // handleCloseCall = () => {
+  //   this.setState({ ...this.state, localStream: undefined, remoteStream: undefined })
+  //   this.props.push(routeNames.call)
+  // }
 
   render() {
-    const peerConnection = this.state.localStream
-      ? (
-        <PeerConnection
-          localStream={this.state.localStream}
-          onStream={this.handleStream}
-          onClose={this.handleCloseCall}
-        />
-      )
-      : null
+    
     const minimizedLocalVideo = this.state.remoteStream
       ? <PopupVideo source={this.state.localStream} muted />
       : null
     
     return (
       <HeaderWithContent fullscreen>
-        {peerConnection}
+        <VideoCall
+          onLocalStream={this.handleLocalStream}
+          onRemoteStream={this.handleRemoteStream}
+          roomId={this.props.match.params.roomId}
+        />
         <ContentContainer>
           <FullscreenVideo source={this.state.remoteStream || this.state.localStream}/>
           <Sidebar />
@@ -128,22 +73,4 @@ const StyledVideoCallPage = styled(VideoCallPage)`
   background-color: ${({ theme }) => theme.colors.white};
 `
 
-const mapStateToProps = (state: ReduxState) => ({
-  peerId: peerId(state),
-  isCallAnswered: isCallAnswered(state),
-  isCalling: isCalling(state),
-  isReady: isReady(state)
-})
-
-const mapDispatchToProps = {
-  startCall: actions.startCall,
-  showInfoNotification: Notifications.info,
-  push: push
-}
-
-const ConnectedVideoCallPage = connect<StateProps, DispatchProps, OwnProps>(
-  mapStateToProps,
-  mapDispatchToProps
-)(StyledVideoCallPage)
-
-export { ConnectedVideoCallPage as VideoCallPage }
+export { StyledVideoCallPage as VideoCallPage }

@@ -1,19 +1,22 @@
 {
 	"folders": [
 		{
-			"path": "c:\\Users\\Vincas\\Desktop\\language-exchange\\chat-service"
+			"path": "chat-service"
 		},
 		{
-			"path": "c:\\Users\\Vincas\\Desktop\\language-exchange\\commons"
+			"path": "commons"
 		},
 		{
-			"path": "c:\\Users\\Vincas\\Desktop\\language-exchange\\peer-server"
+			"path": "peer-server"
 		},
 		{
-			"path": "c:\\Users\\Vincas\\Desktop\\language-exchange\\profile-service"
+			"path": "profile-service"
 		},
 		{
-			"path": "c:\\Users\\Vincas\\Desktop\\language-exchange\\web-main"
+			"path": "web-main"
+		},
+		{
+			"path": "signalmaster"
 		}
 	]
 }
