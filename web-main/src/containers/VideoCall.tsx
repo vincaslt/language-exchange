@@ -31,6 +31,8 @@ class VideoCall extends React.Component<Props> {
       this.rtc.joinRoom(this.props.roomId, (err) => {
         if (err) {
           throw err
+        } else {
+          this.props.joinRoom({ room: this.props.roomId})
         }
       })
     })

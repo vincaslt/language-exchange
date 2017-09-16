@@ -7,9 +7,6 @@
 			"path": "commons"
 		},
 		{
-			"path": "peer-server"
-		},
-		{
 			"path": "profile-service"
 		},
 		{

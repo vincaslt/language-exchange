@@ -1,5 +1,6 @@
 import { createAction, handleActions, Action } from 'redux-actions'
 import { State as ReduxState } from './index'
+import { createSelector } from 'reselect'
 import { withPayload } from '../utils/reduxUtils'
 import * as Dto from 'language-exchange-commons/dist/dto'
 
@@ -81,3 +82,8 @@ export const reducer = handleActions<VideoChatState, Dto.CallData | Dto.RoomData
 
 export const outgoingCall = (state: ReduxState) => state.videoChat.outgoingCall
 export const incomingCall = (state: ReduxState) => state.videoChat.incomingCall
+export const activeCall = (state: ReduxState) => state.videoChat.activeCall
+export const activeRoomId = createSelector(
+  activeCall,
+  (activeCall) => activeCall ? activeCall.roomId : undefined
+)

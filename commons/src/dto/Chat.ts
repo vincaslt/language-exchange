@@ -5,6 +5,7 @@ export interface ChatMessage {
 
 export interface ReceivedChatMessage {
   content: string,
+  chatId: string,
   sender: {
     id: number,
     name: string

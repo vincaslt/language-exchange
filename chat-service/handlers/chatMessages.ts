@@ -9,20 +9,26 @@ const command = 'chatMessages'
 const chatMessagesHandler = ({ socket, io, sender }: HandlerPayload) => {
   socket.on(command, ([...messages]: Dto.ChatMessage[]) => {
     messages.forEach(message => {
-      const room = ActiveUsers.enterRoomForTwo(sender.id.toString(), message.recipient)
+      // First check if already in a room (sending roomId), else create a new one
+      let activeRoom = ActiveUsers.getActiveRoom(sender.id.toString())
+      if (!activeRoom || activeRoom.id !== message.recipient) {
+        activeRoom = ActiveUsers.enterRoomForTwo(sender.id.toString(), message.recipient)
+      }
       console.info('---')
       console.info('from: ', sender.id)
+      console.info('chatId: ', activeRoom.id)
       console.info('to: ', message.recipient)
       console.info('message: ', message)
       console.info('---')
       const payload: Dto.ReceivedChatMessage = { 
         content: message.content,
+        chatId: activeRoom.id,
         sender: {
           id: sender.id,
           name: sender.name
         }
       }
-      socket.to(room).broadcast.emit('chatMessage', payload)
+      socket.to(activeRoom.id).broadcast.emit('chatMessage', payload)
     })
   })
 }

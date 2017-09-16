@@ -43,11 +43,11 @@ class ActiveUserManager {
     if (activeRoom) {
       const activeRoomUsers = activeRoom.users || []
       if (activeRoomUsers.length === 2 && activeRoomUsers.includes(recipientId)) {
-        return activeRoom.id
+        return activeRoom
       }
     }
     
-    return this.createRoom([userId, recipientId]).id
+    return this.createRoom([userId, recipientId])
   }
 
   // TODO: Sync created rooms with database

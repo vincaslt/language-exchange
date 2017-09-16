@@ -8,7 +8,7 @@ const command = 'call'
 // TODO: Make user id a string ?
 const callHandler = ({ socket, io, sender }: HandlerPayload) => {
   socket.on(command, (callData: Dto.CallData) => {
-    const room = ActiveUsers.enterRoomForTwo(sender.id.toString(), callData.recipient)
+    const room = ActiveUsers.enterRoomForTwo(sender.id.toString(), callData.recipient).id
     console.info('---')
     console.info(`${sender.id} is calling ${callData.recipient}`)
     console.info('---')
