@@ -8,8 +8,8 @@ const command = 'answerCall'
 
 // TODO: sender ID is string by default
 const answerCallHandler = ({ socket, io, sender }: HandlerPayload) => {
-  socket.on(command, (callData: Dto.CallData) => {
-    const room = ActiveUsers.getActiveRoom(sender.id.toString()).id
+  socket.on(command, (roomId: string) => {
+    const room = ActiveUsers.getActiveRoomById(sender.id.toString(), roomId).id
     console.info('---')
     console.info(`${sender.id} has answered the call`)
     console.info('---')

@@ -9,11 +9,9 @@ const command = 'chatMessages'
 const chatMessagesHandler = ({ socket, io, sender }: HandlerPayload) => {
   socket.on(command, ([...messages]: Dto.ChatMessage[]) => {
     messages.forEach(message => {
-      // First check if already in a room (sending roomId), else create a new one
-      let activeRoom = ActiveUsers.getActiveRoom(sender.id.toString())
-      if (!activeRoom || activeRoom.id !== message.recipient) {
-        activeRoom = ActiveUsers.enterRoomForTwo(sender.id.toString(), message.recipient)
-      }
+      // First check if already in a room (recipient is roomId), else create a new one
+      const activeRoom = ActiveUsers.getActiveRoomById(sender.id.toString(), message.recipient)
+        || ActiveUsers.enterRoomForTwo(sender.id.toString(), message.recipient)
       console.info('---')
       console.info('from: ', sender.id)
       console.info('chatId: ', activeRoom.id)

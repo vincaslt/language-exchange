@@ -51,14 +51,20 @@ class VideoCallPage extends React.Component<Props, State> {
     const minimizedLocalVideo = this.state.remoteStream
       ? <PopupVideo source={this.state.localStream} muted />
       : null
-    
-    return (
-      <HeaderWithContent fullscreen>
+
+    const roomId = this.props.match.params.roomId
+    const videoCall = roomId
+      ? (
         <VideoCall
           onLocalStream={this.handleLocalStream}
           onRemoteStream={this.handleRemoteStream}
-          roomId={this.props.match.params.roomId}
+          roomId={roomId}
         />
+      ) : null
+    
+    return (
+      <HeaderWithContent fullscreen>
+        {videoCall}
         <ContentContainer>
           <FullscreenVideo source={this.state.remoteStream || this.state.localStream}/>
           <Sidebar />

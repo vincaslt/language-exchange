@@ -20,10 +20,11 @@ const server = https.createServer({
 const io = Server(server)
 
 io.sockets.on('connection', authentication((socket, user) => {
+  const activeRoomIds = ActiveUsers.getActiveRooms(user.id.toString()).map(room => room.id)
   const sender = ActiveUsers.addActiveUser({
     id: user.id,
     name: user.username,
-    rooms: [],
+    rooms: activeRoomIds,
     socket
   })
   socket.emit('handshake')

@@ -39,6 +39,7 @@
     "redux-localstorage-filter": "^0.1.1",
     "redux-saga": "^0.15.3",
     "reselect": "^3.0.1",
+    "simplewebrtc": "^3.0.1",
     "socket.io-client": "^2.0.3",
     "styled-components": "^1.4.5",
     "tslint": "^5.4.3",

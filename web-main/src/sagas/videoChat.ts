@@ -9,7 +9,7 @@ function* answerCallSaga(
   action: Action<{ socket: SocketIOClient.Socket, incomingCall: IncomingCall}>
 ) {
   if (action.payload) {
-    action.payload.socket.emit('answerCall')
+    action.payload.socket.emit('answerCall', action.payload.incomingCall.roomId)
     yield put(push(`${routeNames.call}/${action.payload.incomingCall.roomId}`))
   }
 }
