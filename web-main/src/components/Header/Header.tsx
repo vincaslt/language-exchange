@@ -14,7 +14,7 @@ const Header = ({ ...rest }) => (
       <Navigation>
         <Link href="#" target="_blank">link1</Link>
         <Link href="#">link2</Link>
-        <Link to={routeNames.call}>Chat</Link>
+        <Link to={routeNames.activeUsers}>Chat</Link>
       </Navigation>
     </HeaderContent>
   </div>

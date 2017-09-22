@@ -1,6 +1,7 @@
 const routeNames = {
   home: '/',
-  call: '/call'
+  call: '/call',
+  activeUsers: '/users'
 }
 
 export { routeNames }
