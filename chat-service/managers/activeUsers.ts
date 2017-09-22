@@ -25,6 +25,10 @@ class ActiveUserManager {
     this.rooms = {}
   }
 
+  public getActiveUsers() {
+    return this.activeUsers
+  }
+
   public addActiveUser(user: ActiveUser) {
     this.activeUsers[user.id] = user
     return this.activeUsers[user.id]
@@ -42,10 +46,7 @@ class ActiveUserManager {
       return activeUser.rooms.map(roomId => {
         const room = this.rooms[roomId]
         const roomUsers = room.users || []
-        if (roomUsers.includes(userId)) {
-          return room
-        }
-        return null
+        return roomUsers.includes(userId) ? room : null
       }).filter(room => !!room)
     }
     return []

@@ -9,11 +9,15 @@ interface Props {
 }
 
 const Container = styled.div`
+  display: flex;
   height: ${({ fullscreen }: Props) => fullscreen ? '100vh' : 'auto'};
   width: ${({ fullscreen }: Props) => fullscreen ? '100%' : 'auto'};
+  min-height: 100vh;
+  
 `
 
 const Content = styled.div`
+  min-width: 100%;
   height: ${({ fullscreen }: Props) => fullscreen ? '100%' : 'auto'};
   width: ${({ fullscreen }: Props) => fullscreen ? '100%' : 'auto'};
 `
@@ -28,7 +32,7 @@ const HeaderWithContent = ({ children, fullscreen, ...rest }: Props) => (
 )
 
 const StyledHeaderWithContent = styled(HeaderWithContent)`
-  padding-top: ${({ nopadding }: Props) => !nopadding ? headerConstants.height : 'auto'};
+  padding-top: ${({ nopadding }: Props) => !nopadding ? headerConstants.height : 'unset'};
 `
 
 export { StyledHeaderWithContent as HeaderWithContent}
