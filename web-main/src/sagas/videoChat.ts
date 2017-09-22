@@ -27,8 +27,14 @@ function rejectCallSaga(action: Action<SocketIOClient.Socket>) {
   }
 }
 
+// TODO: inform room about leaving
+function* dropCallSaga() {
+  yield put(push(`${routeNames.home}`))
+}
+
 export default [
   takeLatest(types.ANSWER_CALL, answerCallSaga),
   takeLatest(types.REJECT_CALL, rejectCallSaga),
+  takeLatest(types.DROP_CALL, dropCallSaga),
   takeLatest(types.CALL_ANSWERED, callAnsweredSaga)
 ]

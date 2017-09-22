@@ -7,7 +7,7 @@ import { actions } from '../modules/videoChat'
 interface OwnProps {
   onLocalStream: (stream: MediaStream) => void,
   onRemoteStream: (stream: MediaStream) => void,
-  // TODO: onClose
+  // TODO: onClose, disconnect gracefully
   roomId: string
 }
 

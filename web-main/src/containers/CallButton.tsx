@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { CallButton as CallButtonComponent } from '../components/CallButton'
 import { State as ReduxState } from '../modules'
-import { outgoingCall, activeCall } from '../modules/videoChat'
+import { outgoingCall, activeCall, actions } from '../modules/videoChat'
 
 type StateProps = {
   isCallAnswered: boolean
@@ -10,7 +10,7 @@ type StateProps = {
 }
 
 type DispatchProps = {
-  dropCall: Function
+  dropCall: typeof actions.dropCall
 }
 
 type Props = StateProps & DispatchProps
@@ -47,7 +47,7 @@ const mapStateToProps = (state: ReduxState) => ({
 })
 
 const mapDispatchToProps = {
-  dropCall: () => { /* TODO: Use redux action */ } 
+  dropCall: actions.dropCall
 }
 
 const ConnectedCallButton = connect(

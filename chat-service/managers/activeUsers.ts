@@ -72,8 +72,10 @@ class ActiveUserManager {
     // TODO: handle exception when no active user
     users.forEach(userId => {
       const user = this.activeUsers[userId]
-      user.rooms.push(roomId)
-      user.socket.join(roomId)
+      if (user) {
+        user.rooms.push(roomId)
+        user.socket.join(roomId)
+      }
     })
 
     return this.rooms[roomId]

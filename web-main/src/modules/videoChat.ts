@@ -29,7 +29,8 @@ export const types = {
   ANSWER_CALL: 'VIDEO_CHAT/ANSWER_CALL',
   REJECT_CALL: 'VIDEO_CHAT/REJECT_CALL',
   JOIN_ROOM: 'VIDEO_CHAT/JOIN_ROOM',
-  CALL_ANSWERED: 'VIDEO_CHAT/CALL_ANSWERED'
+  CALL_ANSWERED: 'VIDEO_CHAT/CALL_ANSWERED',
+  DROP_CALL: 'VIDEO_CHAT/DROP_CALL'
 }
 
 export const actions = {
@@ -42,7 +43,8 @@ export const actions = {
     })),
   rejectCall: createAction(types.REJECT_CALL, (socket: SocketIOClient.Socket) => socket),
   joinRoom: createAction(types.JOIN_ROOM, (roomData: Dto.RoomData) => roomData),
-  callAnswered: createAction(types.CALL_ANSWERED, (roomData: Dto.RoomData) => roomData)
+  callAnswered: createAction(types.CALL_ANSWERED, (roomData: Dto.RoomData) => roomData),
+  dropCall: createAction(types.DROP_CALL)
 }
 
 export const reducer = handleActions<VideoChatState, Dto.CallData | Dto.RoomData>({
@@ -69,6 +71,10 @@ export const reducer = handleActions<VideoChatState, Dto.CallData | Dto.RoomData
   [types.REJECT_CALL]: (state: VideoChatState) => ({
     ...state,
     incomingCall: undefined
+  }),
+  [types.DROP_CALL]: (state: VideoChatState) => ({
+    ...state,
+    activeCall: undefined
   }),
   [types.JOIN_ROOM]: (state: VideoChatState, action: Action<Dto.RoomData>) => (
     withPayload(action, payload => ({
